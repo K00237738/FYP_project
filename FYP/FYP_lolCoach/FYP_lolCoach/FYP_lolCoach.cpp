@@ -2,10 +2,13 @@
 //
 
 #include <iostream>
+#include "TestHeader.h"
 
 int main()
 {
     std::cout << "This is gonna be my FYP!\n";
+    TestHeader t1;
+    t1.MethodTest();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
