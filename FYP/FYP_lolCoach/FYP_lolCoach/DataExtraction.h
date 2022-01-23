@@ -13,6 +13,8 @@ class DataExtraction
 public:
 	DataExtraction();
 	void AskQuestions();//sample method so class has something for now
+	void MapMovementDataGathering();
+	void ReturnData();
 };
 
 #endif // !DATA_EXTRACTION
