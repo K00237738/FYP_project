@@ -16,7 +16,7 @@ void SystemMain::EngineMain()
 	}
 	GetUserRole();
 	GetPreferedChamp();
-
+	DecideAdvice();
 }
 
 bool SystemMain::LoginProcdure()
@@ -59,15 +59,114 @@ void SystemMain::ExitProcedure()
 
 void SystemMain::GetUserRole()
 {
-	
+	bool check = false;
+	int inputTemp;
+	while (check == false)
+	{
+		cout << "\nPlease choose one of the following options for your prefered role in the game, which lane: " <<
+			"\n1. Top\n2. Mid\n3. Bottom\n4. Support\n5. Jungle";
+		cin >> inputTemp;
+		switch (inputTemp)
+		{
+		case 1:
+			userRole = TOP;
+			check = true;
+			break;
+		case 2:
+			userRole = MID;
+			check = true;
+			break;
+		case 3:
+			userRole = BOTTOM;
+			check = true;
+			break;
+		case 4:
+			userRole = SUPP;
+			check = true;
+			break;
+		case 5:
+			userRole = JNGL;
+			check = true;
+			break;
+		default:
+			cout << "\nInput not valid, try again";
+			break;
+		}
+	}
 }
 
 void SystemMain::GetPreferedChamp()
 {
-
+	bool check = false;
+	int inputTemp;
+	while (check == false)
+	{
+		cout << "\nPlease choose one of the following options for your prefered champion type in the game: " <<
+			"\n1. Controller\n2. Fighter\n3. Mage\n4. Marksman\n5. Slayer\n6. Tank\n7. Special";
+		cin >> inputTemp;
+		switch (inputTemp)
+		{
+		case 1:
+			userChampType = CONTROLLER;
+			check = true;
+			break;
+		case 2:
+			userChampType = FIGHTER;
+			check = true;
+			break;
+		case 3:
+			userChampType = MAGE;
+			check = true;
+			break;
+		case 4:
+			userChampType = MARKSMAN;
+			check = true;
+			break;
+		case 5:
+			userChampType = SLAYER;
+			check = true;
+			break;
+		case 6:
+			userChampType = TANK;
+			check = true;
+			break;
+		case 7:
+			userChampType = SPECIAL;
+			check = true;
+			break;
+		default:
+			cout << "\nInput not valid, try again";
+			break;
+		}
+	}
 }
 
 void SystemMain::DecideAdvice()
 {
-
+	bool check = false;
+	int inputTemp;
+	while (check == false)
+	{
+		cout << "\nPlease choose one of the following options for your advice area: " <<
+			"\n1. Map Movement\n2. Combat Engagement\n3. Item Purchasing\n4. General Strategy\n5. Exit";
+		cin >> inputTemp;
+		switch (inputTemp)
+		{
+		case 1:
+			MapMovement();
+			break;
+		case 2:CombatEngagemnet();
+			break;
+		case 3:ItemPurchasing();
+			break;
+		case 4:GeneralStrategy();
+			break;
+		case 5:
+			ExitProcedure();
+			break;
+		default:
+			cout << "\nInput not valid, try again";
+			break;
+		}
+	}
 }

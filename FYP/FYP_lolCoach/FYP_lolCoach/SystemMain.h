@@ -38,6 +38,8 @@ protected:
 	};
 	string userName, passWord, apiKey,
 		gameRole, perferedType;
+	Roles userRole;
+	ChampionTypes userChampType;
 };
 #endif // !SYSTEM_MAIN
 
