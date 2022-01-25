@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClInclude Include="DataExtraction.h" />
     <ClInclude Include="LogicalReasoning.h" />
+    <ClInclude Include="MatchInfoData.h" />
     <ClInclude Include="SystemMain.h" />
     <ClInclude Include="TestHeader.h" />
   </ItemGroup>

@@ -44,5 +44,8 @@
     <ClInclude Include="LogicalReasoning.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MatchInfoData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
