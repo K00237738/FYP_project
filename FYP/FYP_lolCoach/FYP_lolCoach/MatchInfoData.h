@@ -9,7 +9,8 @@ using namespace std;
 class MatchInfoData
 {
 public:
-	enum MapPositions {TEMP};
+	enum MapPositions {B_BOT, B_MID, B_TOP, B_BOTJNG, B_TOPJNG, B_BASE,
+	T_BOT, T_MID, T_TOP, T_BOTJNG, T_TOPJNG, T_BASE};
 
 
 private:
@@ -19,7 +20,7 @@ private:
 	vector<bool> wasEnemyStronger;
 	int entries;
 
-	void AddEntry(/*needs params*/);
+	void AddEntry(float time, MapPositions mposition, short level, bool Estrong);
 	int GetEntries();
 	float GetTime(int entry);
 	MapPositions GetPosition(int entry);

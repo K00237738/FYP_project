@@ -142,6 +142,7 @@
     <ClCompile Include="DataExtraction.cpp" />
     <ClCompile Include="FYP_lolCoach.cpp" />
     <ClCompile Include="LogicalReasoning.cpp" />
+    <ClCompile Include="MatchInfoData.cpp" />
     <ClCompile Include="SystemMain.cpp" />
     <ClCompile Include="TestHeader.cpp" />
   </ItemGroup>
