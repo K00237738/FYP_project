@@ -26,6 +26,7 @@ private:
 	MapPositions GetPosition(int entry);
 	short GetLevel(int entry);
 	bool WasEnemyStronger(int entry);
+	bool IsBaseUnderAttack(int entry);
 
 protected:
 
