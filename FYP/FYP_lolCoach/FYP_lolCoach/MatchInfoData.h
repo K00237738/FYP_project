@@ -11,6 +11,7 @@ class MatchInfoData
 public:
 	enum MapPositions {B_BOT, B_MID, B_TOP, B_BOTJNG, B_TOPJNG, B_BASE,
 	T_BOT, T_MID, T_TOP, T_BOTJNG, T_TOPJNG, T_BASE};
+	//enum
 
 
 private:

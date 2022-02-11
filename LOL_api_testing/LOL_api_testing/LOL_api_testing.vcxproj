@@ -29,13 +29,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -88,12 +88,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\GitRepository\FYP_project\LOL_api_testing\LOL_api_testing\lib;D:\GitRepository\FYP_project\LOL_api_testing\LOL_api_testing\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\student\Documents\Sem8\FYPstuffSem8\FYP_GitRepos\FYP_project\LOL_api_testing\LOL_api_testing\lib;C:\Users\student\Documents\Sem8\FYPstuffSem8\FYP_GitRepos\FYP_project\LOL_api_testing\LOL_api_testing\include;D:\GitRepository\FYP_project\LOL_api_testing\LOL_api_testing\lib;D:\GitRepository\FYP_project\LOL_api_testing\LOL_api_testing\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\GitRepository\FYP_project\LOL_api_testing\LOL_api_testing\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\student\Documents\Sem8\FYPstuffSem8\FYP_GitRepos\FYP_project\LOL_api_testing\LOL_api_testing\src;C:\Users\student\Documents\Sem8\FYPstuffSem8\FYP_GitRepos\FYP_project\LOL_api_testing\LOL_api_testing\lib\rapidjson;C:\Users\student\Documents\Sem8\FYPstuffSem8\FYP_GitRepos\FYP_project\LOL_api_testing\LOL_api_testing\lib\curl;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -104,14 +104,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\student\Documents\Sem8\FYPstuffSem8\FYP_GitRepos\FYP_project\LOL_api_testing\LOL_api_testing\lib;C:\Users\student\Documents\Sem8\FYPstuffSem8\FYP_GitRepos\FYP_project\LOL_api_testing\LOL_api_testing\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\student\Documents\Sem8\FYPstuffSem8\FYP_GitRepos\FYP_project\LOL_api_testing\LOL_api_testing\lib;C:\Users\student\Documents\Sem8\FYPstuffSem8\FYP_GitRepos\FYP_project\LOL_api_testing\LOL_api_testing\include;C:\Users\student\Documents\Sem8\FYPstuffSem8\FYP_GitRepos\FYP_project\LOL_api_testing\LOL_api_testing\lib;C:\Users\student\Documents\Sem8\FYPstuffSem8\FYP_GitRepos\FYP_project\LOL_api_testing\LOL_api_testing\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\student\Documents\Sem8\FYPstuffSem8\FYP_GitRepos\FYP_project\LOL_api_testing\LOL_api_testing\src;C:\Users\student\Documents\Sem8\FYPstuffSem8\FYP_GitRepos\FYP_project\LOL_api_testing\LOL_api_testing\lib\rapidjson;C:\Users\student\Documents\Sem8\FYPstuffSem8\FYP_GitRepos\FYP_project\LOL_api_testing\LOL_api_testing\lib\curl;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

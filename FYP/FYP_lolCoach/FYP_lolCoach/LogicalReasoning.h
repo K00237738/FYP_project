@@ -15,11 +15,14 @@ public:
 	LogicalReasoning();
 	void ReasoningProcess();//sample method so class has something for now
 	void MapMovementReasoning();
+	//-------------------------
 	void UserChampionConsideration();
+	void RoleConsideration();
 	void TimeConsideration();
 	void MapPositionConsideration();
 	void LevelConsideration();
 	void EnemyStrengthConsideration();
+	void KD_Consideration();
 };
 
 #endif // !LOGICAL_REASONING
