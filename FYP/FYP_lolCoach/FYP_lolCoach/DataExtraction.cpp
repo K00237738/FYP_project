@@ -57,5 +57,5 @@ void DataExtraction::KD_Data()
 //-------------------------- Return Info
 MatchInfoData DataExtraction::ReturnData()
 {
-
+	return MatchInfoData();
 }

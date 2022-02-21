@@ -1,8 +1,10 @@
 #pragma once
 #ifndef SYSTEM_MAIN
 #define SYSTEM_MAIN
+
 #include <string.h>
 #include <iostream>
+#include "MatchInfoData.h"
 
 using namespace std;
 
@@ -19,27 +21,19 @@ public:
 	void GetUserRole();
 	void GetPreferedChamp();
 	void DecideAdvice();
-	void MapMovement();
+	/*void MapMovement();
 	void CombatEngagemnet();
 	void ItemPurchasing();
 	void GeneralStrategy();
-	void DeliverDecision();
+	void DeliverDecision();*/
 	void ExitProcedure();
 private:
 
 protected:
-	enum Roles
-	{
-		TOP, MID, BOTTOM, SUPP, JNGL
-	};
-	enum ChampionTypes
-	{
-		CONTROLLER, FIGHTER, MAGE, MARKSMAN, SLAYER, TANK, SPECIAL
-	};
 	string userName, passWord, apiKey,
 		gameRole, perferedType;
-	Roles userRole;
-	ChampionTypes userChampType;
+	MatchInfoData::Roles userRole;
+	MatchInfoData::ChampionTypes userChampType;
 };
 #endif // !SYSTEM_MAIN
 

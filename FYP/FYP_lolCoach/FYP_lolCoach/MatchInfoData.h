@@ -13,6 +13,11 @@ public:
 	T_BOT, T_MID, T_TOP, T_BOTJNG, T_TOPJNG, T_BASE};
 	//enum
 	enum GameTime{EARLY1, EARLY2, MID, LATE1, LATE2};
+	enum Roles{TOP, MIDLANE, BOTTOM, SUPP, JNGL};
+	enum ChampionTypes{CONTROLLER, FIGHTER, MAGE, 
+		MARKSMAN, SLAYER, TANK, SPECIAL};
+	MatchInfoData();
+
 
 
 private:
@@ -23,6 +28,9 @@ private:
 	vector<bool> baseInDanger;
 	vector<short> KDstates;
 	int entries;
+	//-----not sure if will use theses below
+	Roles userRole;
+	ChampionTypes userChampion;
 
 	void AddEntry(GameTime time, MapPositions mposition, short level, bool Estrong, bool baseAttack, int KDstate);
 	int GetEntries();

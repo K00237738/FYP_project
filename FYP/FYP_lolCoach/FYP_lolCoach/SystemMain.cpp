@@ -69,23 +69,23 @@ void SystemMain::GetUserRole()
 		switch (inputTemp)
 		{
 		case 1:
-			userRole = TOP;
+			userRole = MatchInfoData::TOP;
 			check = true;
 			break;
 		case 2:
-			userRole = MID;
+			userRole = MatchInfoData::MIDLANE;
 			check = true;
 			break;
 		case 3:
-			userRole = BOTTOM;
+			userRole = MatchInfoData::BOTTOM;
 			check = true;
 			break;
 		case 4:
-			userRole = SUPP;
+			userRole = MatchInfoData::SUPP;
 			check = true;
 			break;
 		case 5:
-			userRole = JNGL;
+			userRole = MatchInfoData::JNGL;
 			check = true;
 			break;
 		default:
@@ -107,31 +107,31 @@ void SystemMain::GetPreferedChamp()
 		switch (inputTemp)
 		{
 		case 1:
-			userChampType = CONTROLLER;
+			userChampType = MatchInfoData::CONTROLLER;
 			check = true;
 			break;
 		case 2:
-			userChampType = FIGHTER;
+			userChampType = MatchInfoData::FIGHTER;
 			check = true;
 			break;
 		case 3:
-			userChampType = MAGE;
+			userChampType = MatchInfoData::MAGE;
 			check = true;
 			break;
 		case 4:
-			userChampType = MARKSMAN;
+			userChampType = MatchInfoData::MARKSMAN;
 			check = true;
 			break;
 		case 5:
-			userChampType = SLAYER;
+			userChampType = MatchInfoData::SLAYER;
 			check = true;
 			break;
 		case 6:
-			userChampType = TANK;
+			userChampType = MatchInfoData::TANK;
 			check = true;
 			break;
 		case 7:
-			userChampType = SPECIAL;
+			userChampType = MatchInfoData::SPECIAL;
 			check = true;
 			break;
 		default:
@@ -145,7 +145,7 @@ void SystemMain::DecideAdvice()
 {
 	bool check = false;
 	int inputTemp;
-	while (check == false)
+	/*while (check == false)
 	{
 		cout << "\nPlease choose one of the following options for your advice area: " <<
 			"\n1. Map Movement\n2. Combat Engagement\n3. Item Purchasing\n4. General Strategy\n5. Exit";
@@ -168,5 +168,5 @@ void SystemMain::DecideAdvice()
 			cout << "\nInput not valid, try again";
 			break;
 		}
-	}
+	}*/
 }
