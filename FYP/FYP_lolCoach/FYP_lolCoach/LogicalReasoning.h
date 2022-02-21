@@ -18,6 +18,7 @@ public:
 	//-------------------------
 	void UserChampionConsideration();
 	void RoleConsideration();
+	//-------------------------
 	void TimeConsideration();
 	void MapPositionConsideration();
 	void LevelConsideration();

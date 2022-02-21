@@ -15,14 +15,23 @@ class DataExtraction
 public:
 	DataExtraction();
 	void AskQuestions();//sample method so class has something for now
+	//-------------------------- General info
 	void UserChampionData();
 	void RoleData();
-	void MapPositionData();
+	//-------------------------- Specific Info
 	void TimeData();
+	void MapPositionData();
 	void LevelData();
 	void EnemyStrengthData();
+	void WasBaseVulnerableData();
 	void KD_Data();
+	//-------------------------- Return Info
 	MatchInfoData ReturnData();
+
+private:
+
+protected:
+
 };
 
 #endif // !DATA_EXTRACTION
