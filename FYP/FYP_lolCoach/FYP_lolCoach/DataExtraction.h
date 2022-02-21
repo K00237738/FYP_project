@@ -18,6 +18,10 @@ public:
 	//-------------------------- General info
 	void UserChampionData();
 	void RoleData();
+	//-------------------------- Data Gathering sequences
+	void MapMovementDataGathering();
+	void CombatEngagementDataGathering();
+	void ItemPurchaseDataGathering();
 	//-------------------------- Specific Info
 	void TimeData();
 	void MapPositionData();

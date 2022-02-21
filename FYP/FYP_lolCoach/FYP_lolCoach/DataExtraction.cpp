@@ -23,6 +23,25 @@ void DataExtraction::RoleData()
 
 }
 
+//-------------------------- Data Gathering sequences
+void DataExtraction::MapMovementDataGathering()
+{
+	for (int i = 0; i < 5; i++)//match is always split into 5 segments
+	{
+
+	}
+}
+
+void DataExtraction::CombatEngagementDataGathering()
+{
+
+}
+
+void DataExtraction::ItemPurchaseDataGathering()
+{
+
+}
+
 //-------------------------- Specific Info
 void DataExtraction::TimeData()
 {
