@@ -23,7 +23,7 @@ public:
 	void CombatEngagementDataGathering();
 	void ItemPurchaseDataGathering();
 	//-------------------------- Specific Info
-	void TimeData();
+	void TimeData(int timeEntry);
 	void MapPositionData();
 	void LevelData();
 	void EnemyStrengthData();
@@ -33,6 +33,13 @@ public:
 	MatchInfoData ReturnData();
 
 private:
+	MatchInfoData::GameTime gameTimeEntry;
+	MatchInfoData::MapPositions mapPosEntry;
+	MatchInfoData::Roles userRoleInput;
+	MatchInfoData::ChampionTypes userChampionInput;
+	short level, kd;
+	bool enemyStrength, baseVulnerable;
+
 
 protected:
 

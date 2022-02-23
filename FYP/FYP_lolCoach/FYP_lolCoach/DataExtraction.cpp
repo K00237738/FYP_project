@@ -28,7 +28,12 @@ void DataExtraction::MapMovementDataGathering()
 {
 	for (int i = 0; i < 5; i++)//match is always split into 5 segments
 	{
-
+		TimeData(i);
+		MapPositionData();
+		LevelData();
+		EnemyStrengthData();
+		WasBaseVulnerableData();
+		KD_Data();
 	}
 }
 
@@ -43,7 +48,7 @@ void DataExtraction::ItemPurchaseDataGathering()
 }
 
 //-------------------------- Specific Info
-void DataExtraction::TimeData()
+void DataExtraction::TimeData(int timeEntry)
 {
 
 }
