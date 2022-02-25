@@ -21,11 +21,11 @@ public:
 	void GetUserRole();
 	void GetPreferedChamp();
 	void DecideAdvice();
-	/*void MapMovement();
+	void MapMovement();
 	void CombatEngagemnet();
 	void ItemPurchasing();
 	void GeneralStrategy();
-	void DeliverDecision();*/
+	void DeliverDecision();
 	void ExitProcedure();
 private:
 

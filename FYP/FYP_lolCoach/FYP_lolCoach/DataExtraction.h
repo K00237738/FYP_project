@@ -33,10 +33,10 @@ public:
 	MatchInfoData ReturnData();
 
 private:
-	MatchInfoData::GameTime gameTimeEntry;
-	MatchInfoData::MapPositions mapPosEntry;
-	MatchInfoData::Roles userRoleInput;
-	MatchInfoData::ChampionTypes userChampionInput;
+	MatchInfoData::GameTime gameTimeEntry = MatchInfoData::EARLY1;//default values
+	MatchInfoData::MapPositions mapPosEntry = MatchInfoData::B_BASE;
+	MatchInfoData::Roles userRoleInput = MatchInfoData::BOTTOM;
+	MatchInfoData::ChampionTypes userChampionInput = MatchInfoData::FIGHTER;
 	short level, kd;
 	bool enemyStrength, baseVulnerable;
 

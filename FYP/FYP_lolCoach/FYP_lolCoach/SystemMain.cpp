@@ -1,4 +1,5 @@
 #include "SystemMain.h"
+#include "DataExtraction.h"
 
 SystemMain::SystemMain()
 {
@@ -145,7 +146,7 @@ void SystemMain::DecideAdvice()
 {
 	bool check = false;
 	int inputTemp;
-	/*while (check == false)
+	while (check == false)
 	{
 		cout << "\nPlease choose one of the following options for your advice area: " <<
 			"\n1. Map Movement\n2. Combat Engagement\n3. Item Purchasing\n4. General Strategy\n5. Exit";
@@ -155,18 +156,27 @@ void SystemMain::DecideAdvice()
 		case 1:
 			MapMovement();
 			break;
-		case 2:CombatEngagemnet();
+		/*case 2:
+			CombatEngagemnet();
 			break;
-		case 3:ItemPurchasing();
+		case 3:
+			ItemPurchasing();
 			break;
-		case 4:GeneralStrategy();
+		case 4:
+			GeneralStrategy();
 			break;
 		case 5:
 			ExitProcedure();
-			break;
+			break;*/
 		default:
 			cout << "\nInput not valid, try again";
 			break;
 		}
-	}*/
+	}
+}
+
+void SystemMain::MapMovement()
+{
+	DataExtraction mapinfogathering;
+	mapinfogathering.MapMovementDataGathering();
 }

@@ -9,12 +9,12 @@ using namespace std;
 class MatchInfoData
 {
 public:
-	enum MapPositions {B_BOT, B_MID, B_TOP, B_BOTJNG, B_TOPJNG, B_BASE,
+	enum MapPositions {B_BOT = 1, B_MID, B_TOP, B_BOTJNG, B_TOPJNG, B_BASE,
 	T_BOT, T_MID, T_TOP, T_BOTJNG, T_TOPJNG, T_BASE};
 	//enum
-	enum GameTime{EARLY1, EARLY2, MID, LATE1, LATE2};
-	enum Roles{TOP, MIDLANE, BOTTOM, SUPP, JNGL};
-	enum ChampionTypes{CONTROLLER, FIGHTER, MAGE, 
+	enum GameTime{EARLY1 = 1, EARLY2, MID, LATE1, LATE2};
+	enum Roles{TOP = 1, MIDLANE, BOTTOM, SUPP, JNGL};
+	enum ChampionTypes{CONTROLLER = 1, FIGHTER, MAGE, 
 		MARKSMAN, SLAYER, TANK, SPECIAL};
 	MatchInfoData();
 

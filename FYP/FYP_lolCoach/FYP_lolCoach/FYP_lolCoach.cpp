@@ -3,12 +3,15 @@
 
 #include <iostream>
 #include "TestHeader.h"
+#include "SystemMain.h"
 
 int main()
 {
     std::cout << "This is gonna be my FYP!\n";
-    TestHeader t1;
-    t1.MethodTest();
+    //TestHeader t1;
+    //t1.MethodTest();
+    SystemMain h1;
+    h1.EngineMain();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
