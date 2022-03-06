@@ -2,6 +2,8 @@
 #ifndef LOGICAL_REASONING
 #define LOGICAL_REASONING
 
+#include "MatchInfoData.h"
+
 using namespace std;
 
 class LogicalReasoning
@@ -24,6 +26,13 @@ public:
 	void LevelConsideration();
 	void EnemyStrengthConsideration();
 	void KD_Consideration();
+	//-------------------------
+	void TakeInData(MatchInfoData matchData);
+
+private:
+
+protected:
+
 };
 
 #endif // !LOGICAL_REASONING
