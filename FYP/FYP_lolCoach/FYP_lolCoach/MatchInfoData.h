@@ -17,11 +17,22 @@ public:
 	enum ChampionTypes{CONTROLLER = 1, FIGHTER, MAGE, 
 		MARKSMAN, SLAYER, TANK, SPECIAL};
 	MatchInfoData();
-
+	int GetEntries();
+	//--------------------------
+	void AddEntry(GameTime time, MapPositions mposition,
+		short level, bool Estrong, bool baseAttack, int KDstate);
+	//--------------------------
+	GameTime GetTime(int entry);
+	MapPositions GetPosition(int entry);
+	short GetLevel(int entry);
+	bool WasEnemyStronger(int entry);
+	bool IsBaseUnderAttack(int entry);
+	short GetKD(int entry);
 
 
 private:
 	vector<GameTime> timestamps;
+	vector<float> timestamps2;//for game time parsed
 	vector<MapPositions> timePositions;
 	vector<short> timeLevels;
 	vector<bool> wasEnemyStronger;
@@ -31,16 +42,6 @@ private:
 	//-----not sure if will use theses below
 	Roles userRole;
 	ChampionTypes userChampion;
-
-	void AddEntry(GameTime time, MapPositions mposition, short level, bool Estrong, bool baseAttack, int KDstate);
-	int GetEntries();
-	//--------------------------
-	GameTime GetTime(int entry);
-	MapPositions GetPosition(int entry);
-	short GetLevel(int entry);
-	bool WasEnemyStronger(int entry);
-	bool IsBaseUnderAttack(int entry);
-	short GetKD(int entry);
 
 protected:
 

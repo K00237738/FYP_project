@@ -1,6 +1,7 @@
 #pragma once
 #ifndef LOGICAL_REASONING
 #define LOGICAL_REASONING
+#include "MatchInfoData.h"
 
 using namespace std;
 
@@ -14,16 +15,28 @@ class LogicalReasoning
 public:
 	LogicalReasoning();
 	void ReasoningProcess();//sample method so class has something for now
-	void MapMovementReasoning();
+	void MapMovementReasoning(MatchInfoData matchData);
 	//-------------------------
-	void UserChampionConsideration();
-	void RoleConsideration();
+	void UserChampionConsideration(MatchInfoData matchData);
+	void RoleConsideration(MatchInfoData matchData);
 	//-------------------------
-	void TimeConsideration();
-	void MapPositionConsideration();
-	void LevelConsideration();
-	void EnemyStrengthConsideration();
-	void KD_Consideration();
+	void TimeConsideration(MatchInfoData matchData, int entry);
+	void MapPositionConsideration(MatchInfoData matchData, int entry);
+	void LevelConsideration(MatchInfoData matchData);
+	void EnemyStrengthConsideration(MatchInfoData matchData);
+	void BaseConsideration(MatchInfoData matchData);
+	void KD_Consideration(MatchInfoData matchData);
+
+private:
+	enum RISKLEVEL { TOO_SAFE = 1, SAFE, LITTLE_MODERATE, 
+		MODERATE, OVER_MODERATE, RISKY, TOO_RISKY };
+	RISKLEVEL riskyness;
+	int timeDivide = 0;
+	MatchInfoData::GameTime currentState;
+	int matchBreakUp, timeRisk, mapPosRisk;
+
+protected:
+
 };
 
 #endif // !LOGICAL_REASONING
