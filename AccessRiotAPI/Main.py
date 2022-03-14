@@ -9,10 +9,10 @@ def main():
 	r=api.get_active_player(Consts.URL['base'])
 	#r=api.get_champ_rotation(),
 	print(r)
-    #possibly read how many files and then write to a new 
-    results = open("results.json", "w")
-    results.write(r)
-    results.close()
+	#possibly read how many files and then write to a new 
+	#results = open("results.json", "w")
+	#results.write(r)
+	#results.close()
 
 if __name__=="__main__":
 	main()
