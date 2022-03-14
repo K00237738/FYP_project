@@ -39,8 +39,7 @@ class RiotAPI(object):
 		api_url = Consts.URL['champ_rotation'].format()
 		return self._request(api_url)
 
-	def get_active_player(self, api_url, params={}):
-		response2=requests.get(Consts.URL['base2'].format(), verify=False)
+	def get_active_player(self, params={}):
 		if self.call == 2:
 			query = ''
 		args = {'api_key':self.api_key}
@@ -48,12 +47,9 @@ class RiotAPI(object):
 			if key not in args:
 				args[key]=value
 		if self.call == 1:
-			response2=requests.get(
-			Consts.URL['base2'].format(
-			region=self.region,
-			query=api_url),params=args)
-		print(response2.url)
-		return response2.json()
+			response=requests.get(Consts.URL['base2'])
+		#print(response.url)
+		return response.json()
         
 	def get_games(self, matchID_input):
 		self.call = 1

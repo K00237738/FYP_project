@@ -6,8 +6,7 @@ URL = {
         
         #'base': 'https://{region}.api.riotgames.com/lol/summoner/v{version}/summoners/by-name/{names}/',
         'base': 'https://{region}.api.riotgames.com/{query}',
-        'base2': 'https://127.0.0.1:2999/liveclientdata/activeplayer',
-        #'base2': 'GET https://127.0.0.1:2999/liveclientdata/activeplayer',
+        'base2': '??https://127.0.0.1:2999/liveclientdata/activeplayer',
         'summoner_by_name': 'lol/summoner/v{version}/summoners/by-name/{names}',
         'champ_rotation': 'lol/platform/v3/champion-rotations',
         'match_info': 'lol/match/v5/matches/{matchId}'
