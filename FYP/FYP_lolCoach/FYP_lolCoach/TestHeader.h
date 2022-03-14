@@ -13,6 +13,7 @@ public:
 	int x, y, z;
 	string word;
 	void MethodTest();
+	void ReadJsonMethod();
 };
 #endif // !TESTHEADER
 
