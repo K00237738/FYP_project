@@ -1,0 +1,13 @@
+https://www.w3schools.com/python/python_json.asp
+https://realpython.com/python-json/
+https://docs.python.org/3/library/json.html
+
+https://www.w3schools.com/python/python_file_write.asp
+https://www.w3schools.com/python/ref_func_input.asp
+
+https://rapidjson.org/md_doc_tutorial.html
+https://rapidjson.org/md_doc_stream.html
+https://stackoverflow.com/questions/32205981/reading-json-files-in-c
+https://www.tutorialspoint.com/cplusplus/cpp_files_streams.htm
+
+https://python-course.eu/applications-python/forks-and-forking.php
