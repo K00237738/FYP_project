@@ -40,7 +40,7 @@ class RiotAPI(object):
 		return self._request(api_url)
 
 	def get_active_player(self, api_url, params={}):
-		response2=requests.get(Consts.URL['playerscores'].format(), verify=False)
+		response2=requests.get(Consts.URL['playerlist'].format(), verify=False)
 		if self.call == 2:
 			query = ''
 		args = {'api_key':self.api_key}

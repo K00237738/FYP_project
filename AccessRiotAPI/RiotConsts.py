@@ -8,7 +8,7 @@ URL = {
         'base': 'https://{region}.api.riotgames.com/{query}',
         'base2': 'https://127.0.0.1:2999/liveclientdata/activeplayer',
         'playerlist': 'https://127.0.0.1:2999/liveclientdata/playerlist',
-        'playerscores': 'https://127.0.0.1:2999/liveclientdata/playerscores?summonerName=Doubtless8',
+        'playerscores': 'https://127.0.0.1:2999/liveclientdata/playerscores?summonerName={name}',
         'playeritems': 'https://127.0.0.1:2999/liveclientdata/playeritems?summonerName={name}',
         'eventdata': 'https://127.0.0.1:2999/liveclientdata/eventdata',
         'gamestats': 'https://127.0.0.1:2999/liveclientdata/gamestats',
