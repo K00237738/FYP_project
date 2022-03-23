@@ -11,3 +11,8 @@ https://stackoverflow.com/questions/32205981/reading-json-files-in-c
 https://www.tutorialspoint.com/cplusplus/cpp_files_streams.htm
 
 https://python-course.eu/applications-python/forks-and-forking.php
+-----------------------------------------------------------------------------
+https://stackoverflow.com/questions/16962430/calling-python-script-from-c-and-using-its-output
+https://medium.datadriveninvestor.com/how-to-quickly-embed-python-in-your-c-application-23c19694813
+https://rapidjson.org/md_doc_stream.html
+https://rapidjson.org/md_doc_tutorial.html
