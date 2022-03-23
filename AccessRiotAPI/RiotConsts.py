@@ -6,9 +6,10 @@ URL = {
         
         #'base': 'https://{region}.api.riotgames.com/lol/summoner/v{version}/summoners/by-name/{names}/',
         'base': 'https://{region}.api.riotgames.com/{query}',
-        'base2': 'https://127.0.0.1:2999/liveclientdata/activeplayer',
+        'activeplayerstats': 'https://127.0.0.1:2999/liveclientdata/activeplayer',
+        'playername': 'https://127.0.0.1:2999/liveclientdata/activeplayername',
         'playerlist': 'https://127.0.0.1:2999/liveclientdata/playerlist',
-        'playerscores': 'https://127.0.0.1:2999/liveclientdata/playerscores?summonerName={name}',
+        'playerscores': 'https://127.0.0.1:2999/liveclientdata/playerscores?summonerName={names}',
         'playeritems': 'https://127.0.0.1:2999/liveclientdata/playeritems?summonerName={name}',
         'eventdata': 'https://127.0.0.1:2999/liveclientdata/eventdata',
         'gamestats': 'https://127.0.0.1:2999/liveclientdata/gamestats',
