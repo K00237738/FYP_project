@@ -18,7 +18,7 @@ void LogicalReasoning::MapMovementReasoning(MatchInfoData matchData)
 	for (int i = 0; i < matchData.GetEntries(); i++)//cycle through all entires
 	{//loop though all entires
 		TimeConsideration(matchData, i);
-		MapPositionConsideration(matchData);
+		MapPositionConsideration(matchData, i);
 		LevelConsideration(matchData);
 		EnemyStrengthConsideration(matchData);
 		BaseConsideration(matchData);

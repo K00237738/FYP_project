@@ -28,6 +28,15 @@ public:
 	void KD_Consideration(MatchInfoData matchData);
 
 private:
+	/*
+	Too safe			1
+	Safe				2
+	Little moderate		3
+	Moderate			4
+	Over moderate		5
+	Risky				6
+	Too risky			7
+	*/
 	enum RISKLEVEL { TOO_SAFE = 1, SAFE, LITTLE_MODERATE, 
 		MODERATE, OVER_MODERATE, RISKY, TOO_RISKY };
 	RISKLEVEL riskyness;
