@@ -2,6 +2,8 @@
 #include "MatchInfoData.h"
 #include <iostream>
 #include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 DataExtraction::DataExtraction()
 {
@@ -31,14 +33,39 @@ void DataExtraction::RoleData()
 //-------------------------- Data Gathering sequences
 void DataExtraction::MapMovementDataGathering()
 {
-	for (int i = 0; i < 5; i++)//match is always split into 5 segments
+	bool gameRunning = true;
+	short timePull = 35, gameTime = 3600/*hour*/, fiveMins = 0;
+	//for (int i = 0; i < 5; i++)//match is always split into 5 segments
+	//{
+	//	TimeData(i);
+	//	MapPositionData();
+	//	LevelData();
+	//	EnemyStrengthData();
+	//	WasBaseVulnerableData();
+	//	KD_Data();
+	//}
+	while (gameRunning)
 	{
-		TimeData(i);
-		MapPositionData();
-		LevelData();
-		EnemyStrengthData();
-		WasBaseVulnerableData();
-		KD_Data();
+		//every 35 seconds, read file
+		//every 5 mins, ask player questions on whereabouts and
+		//info can't aquire through api
+		if (timePull > 0)
+		{
+			gameRunning = PullFromFile();
+			if (fiveMins >= 300/*5 mins*/)
+			{//ask player, maybe could look into forking?
+				MapPositionData();
+				WasBaseVulnerableData();
+				fiveMins = 0;
+			}
+			timePull = 35;
+		}
+		else
+		{
+			sleep(1);//sleep for 1 second
+			timePull--;
+			fiveMins++;
+		}
 	}
 }
 
@@ -50,6 +77,17 @@ void DataExtraction::CombatEngagementDataGathering()
 void DataExtraction::ItemPurchaseDataGathering()
 {
 
+}
+
+bool DataExtraction::PullFromFile()
+{
+	//pull from file info
+	bool isGameRunning = false;
+	TimeData(100);
+	LevelData();
+	EnemyStrengthData();
+	KD_Data();
+	return isGameRunning;
 }
 
 //-------------------------- Specific Info

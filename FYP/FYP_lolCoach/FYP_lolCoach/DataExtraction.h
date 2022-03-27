@@ -22,6 +22,7 @@ public:
 	void MapMovementDataGathering();
 	void CombatEngagementDataGathering();
 	void ItemPurchaseDataGathering();
+	bool PullFromFile();
 	//-------------------------- Specific Info
 	void TimeData(int timeEntry);
 	void MapPositionData();
