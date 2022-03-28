@@ -4,6 +4,14 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <rapidjson/document.h> 
+#include <rapidjson/istreamwrapper.h>
+//#include <rapidjson/stringbuffer.h>
+//#include <rapidjson/writer.h>
+#include <fstream>
+
+using namespace rapidjson;
+using namespace std;
 
 DataExtraction::DataExtraction()
 {
@@ -16,17 +24,17 @@ DataExtraction::DataExtraction()
 
 void DataExtraction::AskQuestions()
 {
-
+	//temp method
 }
 
 //-------------------------- General info
 void DataExtraction::UserChampionData()
-{
+{//get chosen champion info
 
 }
 
 void DataExtraction::RoleData()
-{
+{//get chosen role data
 
 }
 
@@ -48,7 +56,7 @@ void DataExtraction::MapMovementDataGathering()
 	{
 		//every 35 seconds, read file
 		//every 5 mins, ask player questions on whereabouts and
-		//info can't aquire through api
+		//info that can't aquire through api
 		if (timePull > 0)
 		{
 			gameRunning = PullFromFile();
@@ -81,18 +89,70 @@ void DataExtraction::ItemPurchaseDataGathering()
 
 bool DataExtraction::PullFromFile()
 {
+	string playername;
+	short kills = 0, deaths = 0, playerlevel = 0, avglvl = 0;
+	float gameTime;
 	//pull from file info
 	bool isGameRunning = false;
-	TimeData(100);
-	LevelData();
-	EnemyStrengthData();
-	KD_Data();
-	return isGameRunning;
+
+	try
+	{
+		ifstream  jsonIn("results.json");
+		IStreamWrapper wrapper(jsonIn);
+		Document d;
+		d.ParseStream(wrapper);
+		if (d.HasMember("playername") == true || d["kills"].IsString() == true)
+		{
+			playername = d["playername"].GetInt();
+		}
+		if (d.HasMember("kills") == true || d["kills"].IsInt() == true)
+		{
+			kills = d["kills"].GetInt();
+		}
+		if (d.HasMember("deaths") == true || d["deaths"].IsInt() == true)
+		{
+			kills = d["deaths"].GetInt();
+		}
+		if (d.HasMember("playerlevel") == true || d["playerlevel"].IsInt() == true)
+		{
+			kills = d["playerlevel"].GetInt();
+		}
+		if (d.HasMember("avglevel") == true || d["avglevel"].IsInt() == true)
+		{
+			avglvl = d["avglevel"].GetInt();
+		}
+		if (d.HasMember("time") == true || d["time"].IsFloat() == true)
+		{
+			gameTime = d["time"].GetFloat();
+		}
+		TimeData(gameTime);
+		LevelData();
+		EnemyStrengthData();
+		KD_Data();
+		return isGameRunning;
+	}
+	catch (exception e)
+	{
+
+	}
 }
 
 //-------------------------- Specific Info
 void DataExtraction::TimeData(int timeEntry)
 {
+	/*
+	Game time breakdown
+	early1 - 5
+	early2 - 15
+	mid - 25
+	late1 - 35
+	late2 - 45
+
+	average game tends to be about 45 - 50 mins or more for longer games.
+	Typically when hitting 50 mins, some players are very high levels, sometimes max
+	So that is why it shall be cataegorized under late 2
+	*/
+
 	cout << "\n******************************************\n";
 	switch (timeEntry)
 	{
@@ -117,10 +177,12 @@ void DataExtraction::TimeData(int timeEntry)
 		gameTimeEntry = MatchInfoData::LATE2;
 		break;
 	}
+
 }
 
 void DataExtraction::MapPositionData()
 {
+	//should keep this as need to ask player data
 	short userInput1, userInput2;
 	while (true)
 	{
