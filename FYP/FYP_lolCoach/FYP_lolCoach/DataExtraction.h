@@ -26,10 +26,10 @@ public:
 	//-------------------------- Specific Info
 	void TimeData(int timeEntry);
 	void MapPositionData();
-	void LevelData();
-	void EnemyStrengthData();
+	void LevelData(short lvlInput);
+	void EnemyStrengthData(short avglvl, short playerlvl);
 	void WasBaseVulnerableData();
-	void KD_Data();
+	void KD_Data(short k, short d);
 	//-------------------------- Return Info
 	MatchInfoData ReturnData();
 

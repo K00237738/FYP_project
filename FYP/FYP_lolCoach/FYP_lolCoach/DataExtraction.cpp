@@ -42,7 +42,40 @@ void DataExtraction::RoleData()
 void DataExtraction::MapMovementDataGathering()
 {
 	bool gameRunning = true;
-	short timePull = 35, gameTime = 3600/*hour*/, fiveMins = 300;
+	int timePull = 35, gameTime = 0/*hour*/, fiveMins = 0;
+
+	clock_t clockTimer;
+	clockTimer = clock();
+	timePull *= CLOCKS_PER_SEC;
+
+	while (gameRunning)
+	{
+		//every 35 seconds, read file
+		//every 5 mins, ask player questions on whereabouts and
+		//info that can't aquire through api
+
+		while ((clock() - clockTimer) < timePull);//loop for 35secs
+		//reach 35 seconds, pull
+		gameRunning = PullFromFile();
+		/*timePull = 35* CLOCKS_PER_SEC;*/
+		~clock();//destroy clock object and create new instance
+		clockTimer = clock();
+		fiveMins += timePull;
+		gameTime += timePull;
+
+		if (fiveMins >= (300 * CLOCKS_PER_SEC)/*5 mins*/)
+		{//ask player, maybe could look into forking?
+			MapPositionData();
+			WasBaseVulnerableData();
+			fiveMins = 0;//reset fivemins mark
+		}
+		if (gameTime >= (3600 * CLOCKS_PER_SEC))
+		{//hour reached, stop pulling from file
+			gameRunning = false;
+		}
+	}
+
+
 	//for (int i = 0; i < 5; i++)//match is always split into 5 segments
 	//{
 	//	TimeData(i);
@@ -52,38 +85,7 @@ void DataExtraction::MapMovementDataGathering()
 	//	WasBaseVulnerableData();
 	//	KD_Data();
 	//}
-	clock_t clockTimer;
-	clockTimer = clock();
-	timePull *= CLOCKS_PER_SEC;
-	gameTime *= CLOCKS_PER_SEC;
-	fiveMins *= CLOCKS_PER_SEC;
-	while (gameRunning)
-	{
-		//every 35 seconds, read file
-		//every 5 mins, ask player questions on whereabouts and
-		//info that can't aquire through api
 
-		if ((clock() - clockTimer) > timePull)
-		{//reach 35 seconds, pull
-			gameRunning = PullFromFile();
-			if (fiveMins >= (300*CLOCKS_PER_SEC)/*5 mins*/)
-			{//ask player, maybe could look into forking?
-				MapPositionData();
-				WasBaseVulnerableData();
-				fiveMins = 0;
-			}
-			/*timePull = 35* CLOCKS_PER_SEC;*/
-			~clock();//destroy clock object and create new instance
-			clockTimer = clock();
-			fiveMins += timePull;
-		}
-		//else
-		//{
-		//	sleep(1);//sleep for 1 second
-		//	timePull--;
-		//	fiveMins++;
-		//}
-	}
 }
 
 void DataExtraction::CombatEngagementDataGathering()
@@ -110,7 +112,7 @@ bool DataExtraction::PullFromFile()
 		IStreamWrapper wrapper(jsonIn);
 		Document d;
 		d.ParseStream(wrapper);
-		if (d.HasMember("playername") == true || d["kills"].IsString() == true)
+		if (d.HasMember("playername") == true || d["playername"].IsString() == true)
 		{
 			playername = d["playername"].GetInt();
 		}
@@ -268,11 +270,9 @@ void DataExtraction::MapPositionData()
 			break;
 		}
 	}
-
-
 }
 
-void DataExtraction::LevelData()
+void DataExtraction::LevelData(short lvlInput)
 {
 	short userInput1;
 	while (true)
@@ -291,7 +291,7 @@ void DataExtraction::LevelData()
 	}
 }
 
-void DataExtraction::EnemyStrengthData()
+void DataExtraction::EnemyStrengthData(short avglvl, short playerlvl)
 {
 	short userInput1;
 	while (true)
@@ -339,7 +339,7 @@ void DataExtraction::WasBaseVulnerableData()
 	}
 }
 
-void DataExtraction::KD_Data()
+void DataExtraction::KD_Data(short k, short d)
 {
 	short userInput1;
 	while (true)
