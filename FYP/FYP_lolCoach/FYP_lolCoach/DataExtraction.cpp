@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include <ctime>
 #include <rapidjson/document.h> 
 #include <rapidjson/istreamwrapper.h>
 //#include <rapidjson/stringbuffer.h>
@@ -42,7 +42,7 @@ void DataExtraction::RoleData()
 void DataExtraction::MapMovementDataGathering()
 {
 	bool gameRunning = true;
-	short timePull = 35, gameTime = 3600/*hour*/, fiveMins = 0;
+	short timePull = 35, gameTime = 3600/*hour*/, fiveMins = 300;
 	//for (int i = 0; i < 5; i++)//match is always split into 5 segments
 	//{
 	//	TimeData(i);
@@ -52,28 +52,37 @@ void DataExtraction::MapMovementDataGathering()
 	//	WasBaseVulnerableData();
 	//	KD_Data();
 	//}
+	clock_t clockTimer;
+	clockTimer = clock();
+	timePull *= CLOCKS_PER_SEC;
+	gameTime *= CLOCKS_PER_SEC;
+	fiveMins *= CLOCKS_PER_SEC;
 	while (gameRunning)
 	{
 		//every 35 seconds, read file
 		//every 5 mins, ask player questions on whereabouts and
 		//info that can't aquire through api
-		if (timePull > 0)
-		{
+
+		if ((clock() - clockTimer) > timePull)
+		{//reach 35 seconds, pull
 			gameRunning = PullFromFile();
-			if (fiveMins >= 300/*5 mins*/)
+			if (fiveMins >= (300*CLOCKS_PER_SEC)/*5 mins*/)
 			{//ask player, maybe could look into forking?
 				MapPositionData();
 				WasBaseVulnerableData();
 				fiveMins = 0;
 			}
-			timePull = 35;
+			/*timePull = 35* CLOCKS_PER_SEC;*/
+			~clock();//destroy clock object and create new instance
+			clockTimer = clock();
+			fiveMins += timePull;
 		}
-		else
-		{
-			sleep(1);//sleep for 1 second
-			timePull--;
-			fiveMins++;
-		}
+		//else
+		//{
+		//	sleep(1);//sleep for 1 second
+		//	timePull--;
+		//	fiveMins++;
+		//}
 	}
 }
 
