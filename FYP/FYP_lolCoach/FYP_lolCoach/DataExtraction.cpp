@@ -122,11 +122,11 @@ bool DataExtraction::PullFromFile()
 		}
 		if (d.HasMember("deaths") == true || d["deaths"].IsInt() == true)
 		{
-			kills = d["deaths"].GetInt();
+			deaths = d["deaths"].GetInt();
 		}
 		if (d.HasMember("playerlevel") == true || d["playerlevel"].IsInt() == true)
 		{
-			kills = d["playerlevel"].GetInt();
+			playerlevel = d["playerlevel"].GetInt();
 		}
 		if (d.HasMember("avglevel") == true || d["avglevel"].IsInt() == true)
 		{
@@ -137,9 +137,9 @@ bool DataExtraction::PullFromFile()
 			gameTime = d["time"].GetFloat();
 		}
 		TimeData(gameTime);
-		LevelData();
-		EnemyStrengthData();
-		KD_Data();
+		LevelData(playerlevel);
+		EnemyStrengthData(avglvl, playerlevel);
+		KD_Data(kills, deaths);
 		return isGameRunning;
 	}
 	catch (exception e)

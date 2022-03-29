@@ -88,7 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\GitRepository\FYP_project\FYP\FYP_lolCoach\FYP_lolCoach\lib\rapidjson;C:\Users\student\Documents\Sem8\FYPstuffSem8\FYP_GitRepos\FYP_project\FYP\FYP_lolCoach\FYP_lolCoach\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\GitRepository\FYP_project\FYP\FYP_lolCoach\FYP_lolCoach\lib;D:\GitRepository\FYP_project\FYP\FYP_lolCoach\FYP_lolCoach\lib\rapidjson;C:\Users\student\Documents\Sem8\FYPstuffSem8\FYP_GitRepos\FYP_project\FYP\FYP_lolCoach\FYP_lolCoach\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -104,7 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\student\Documents\Sem8\FYPstuffSem8\FYP_GitRepos\FYP_project\FYP\FYP_lolCoach\FYP_lolCoach\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\GitRepository\FYP_project\FYP\FYP_lolCoach\FYP_lolCoach\lib;C:\Users\student\Documents\Sem8\FYPstuffSem8\FYP_GitRepos\FYP_project\FYP\FYP_lolCoach\FYP_lolCoach\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
