@@ -18,6 +18,8 @@ DataExtraction::DataExtraction()
 	//default values
 	level = 0;
 	kd = 0;
+	kills = 0;
+	deaths = 0;
 	current_match = 0;
 	enemyStrength = false;
 	baseVulnerable = false;
@@ -79,7 +81,9 @@ void DataExtraction::RoleData()
 void DataExtraction::MapMovementDataGathering()
 {
 	matches.push_back(MatchInfoData());
+	current_match++;
 	RoleData();
+	matches.at(current_match-1);
 	bool gameRunning = true;
 	int timePull = 35, gameTime = 0/*hour*/, fiveMins = 0;
 
@@ -113,6 +117,7 @@ void DataExtraction::MapMovementDataGathering()
 		{//hour reached, stop pulling from file
 			gameRunning = false;
 		}
+
 	}
 
 
@@ -181,15 +186,15 @@ bool DataExtraction::PullFromFile()
 			gameTime = d["time"].GetFloat();
 		}
 		TimeData(gameTime);
-		LevelData(playerlevel);
-		EnemyStrengthData(avglvl, playerlevel);
+		LevelData(playerlevel, avglvl);
+		EnemyStrengthData(avglvl);
 		KD_Data(kills, deaths);
-		return isGameRunning;
 	}
 	catch (exception e)
 	{
 
 	}
+	return isGameRunning;
 }
 
 //-------------------------- Specific Info
@@ -342,9 +347,11 @@ void DataExtraction::MapPositionData()
 	}
 }
 
-void DataExtraction::LevelData(short lvlInput)
+void DataExtraction::LevelData(int lvlInput, int avglvl)
 {
-	short userInput1;
+	level = lvlInput;
+	matchaveragelevel = avglvl;
+	/*short userInput1;
 	while (true)
 	{
 		cout << "\nPlease input your level (1 - 18) roughly at the time of game: \n";
@@ -358,11 +365,16 @@ void DataExtraction::LevelData(short lvlInput)
 		{
 			cout << "\nInput not recognized, please try again. \n";
 		}
-	}
+	}*/
 }
 
-void DataExtraction::EnemyStrengthData(short avglvl, short playerlvl)
-{
+void DataExtraction::EnemyStrengthData(short avglvl)
+{//get match average level
+	matchaveragelevel = avglvl;
+	//pobably wont need method
+	// 
+	// 
+	// 
 	//short userInput1;
 	//while (true)
 	//{
@@ -411,6 +423,8 @@ void DataExtraction::WasBaseVulnerableData()
 
 void DataExtraction::KD_Data(short k, short d)
 {
+	kills = k;
+	deaths = d;
 	//short userInput1;
 	//while (true)
 	//{
@@ -438,18 +452,18 @@ void DataExtraction::KD_Data(short k, short d)
 	//	}
 	//}
 
-	if (k < d)
-	{
-		kd = -1;
-	}
-	else if (k > d)
-	{
-		kd = 1;
-	}
-	else// ==
-	{
-		kd = 0;
-	}
+	//if (k < d)
+	//{
+	//	kd = -1;
+	//}
+	//else if (k > d)
+	//{
+	//	kd = 1;
+	//}
+	//else// ==
+	//{
+	//	kd = 0;
+	//}
 }
 
 //-------------------------- Return Info

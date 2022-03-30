@@ -3,6 +3,7 @@
 MatchInfoData::MatchInfoData()
 {
 	//might have to add a match id for each packet
+	entries = 0;
 }
 
 void MatchInfoData::AddEntry(GameTime time, MapPositions mposition, short level, 

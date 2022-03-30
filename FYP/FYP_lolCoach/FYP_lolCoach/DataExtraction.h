@@ -26,8 +26,8 @@ public:
 	//-------------------------- Specific Info
 	void TimeData(float timeInput);
 	void MapPositionData();
-	void LevelData(short lvlInput);
-	void EnemyStrengthData(short avglvl, short playerlvl);
+	void LevelData(int lvlInput, int avglvl);
+	void EnemyStrengthData(short avglvl);
 	void WasBaseVulnerableData();
 	void KD_Data(short k, short d);
 	//-------------------------- Return Info
@@ -41,7 +41,7 @@ private:
 	float kd;
 	bool enemyStrength, baseVulnerable;
 	vector<MatchInfoData> matches;
-	int current_match, level, matchaveragelevel;
+	int current_match, level, matchaveragelevel, kills, deaths;
 
 
 protected:
