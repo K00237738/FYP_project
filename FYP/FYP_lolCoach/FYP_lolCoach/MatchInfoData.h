@@ -16,6 +16,8 @@ public:
 	enum Roles{TOP = 1, MIDLANE, BOTTOM, SUPP, JNGL};
 	enum ChampionTypes{CONTROLLER = 1, FIGHTER, MAGE, 
 		MARKSMAN, SLAYER, TANK, SPECIAL};
+	//--------------------------
+
 	MatchInfoData();
 	int GetEntries();
 	//--------------------------

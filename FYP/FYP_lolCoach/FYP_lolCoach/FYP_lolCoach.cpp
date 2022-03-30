@@ -10,8 +10,8 @@ int main()
     std::cout << "This is gonna be my FYP!\n";
     //TestHeader t1;
     //t1.ReadJsonMethod();
-    //SystemMain h1;
-    //h1.EngineMain();
+    SystemMain h1;
+    h1.EngineMain();
 
 
 
@@ -29,44 +29,44 @@ int main()
 
 	cout << "Message Show after delay that you entered" << endl;*/
 
-	bool gameRunning = true;
-	int timePull = 35, gameTime = 3600/*hour*/, fiveMins = 0, fiveMinLoops = 0;
+	//bool gameRunning = true;
+	//int timePull = 35, gameTime = 3600/*hour*/, fiveMins = 0, fiveMinLoops = 0;
 
-	timePull *= CLOCKS_PER_SEC;
-	gameTime *= CLOCKS_PER_SEC;
-	//fiveMins *= CLOCKS_PER_SEC;
+	//timePull *= CLOCKS_PER_SEC;
+	//gameTime *= CLOCKS_PER_SEC;
+	////fiveMins *= CLOCKS_PER_SEC;
 
-	clock_t clockTimer;
-	clockTimer = clock();
+	//clock_t clockTimer;
+	//clockTimer = clock();
 
-	while (gameRunning)
-	{
-		//every 35 seconds, read file
-		//every 5 mins, ask player questions on whereabouts and
-		//info that can't aquire through api
+	//while (gameRunning)
+	//{
+	//	//every 35 seconds, read file
+	//	//every 5 mins, ask player questions on whereabouts and
+	//	//info that can't aquire through api
 
-		while ((clock() - clockTimer) < timePull);
-		//reach 35 seconds, pull
-		//gameRunning = PullFromFile();
-		/*timePull = 35* CLOCKS_PER_SEC;*/
-		~clock();//destroy clock object and create new instance
-		clockTimer = clock();
-		fiveMins += timePull;
-		cout << "35 seconds passed" << endl;
-		if (fiveMins >= (60 * CLOCKS_PER_SEC)/*5 mins*/)
-		{//ask player, maybe could look into forking?
-			//MapPositionData();
-			//WasBaseVulnerableData();
-			cout << "1 mins passed" << endl;
-			fiveMins = 0;
-			fiveMinLoops++;
-		}
-		
-		if (fiveMinLoops >= 1)
-		{
-			gameRunning = false;
-		}
-	}
+	//	while ((clock() - clockTimer) < timePull);
+	//	//reach 35 seconds, pull
+	//	//gameRunning = PullFromFile();
+	//	/*timePull = 35* CLOCKS_PER_SEC;*/
+	//	~clock();//destroy clock object and create new instance
+	//	clockTimer = clock();
+	//	fiveMins += timePull;
+	//	cout << "35 seconds passed" << endl;
+	//	if (fiveMins >= (60 * CLOCKS_PER_SEC)/*5 mins*/)
+	//	{//ask player, maybe could look into forking?
+	//		//MapPositionData();
+	//		//WasBaseVulnerableData();
+	//		cout << "1 mins passed" << endl;
+	//		fiveMins = 0;
+	//		fiveMinLoops++;
+	//	}
+	//	
+	//	if (fiveMinLoops >= 1)
+	//	{
+	//		gameRunning = false;
+	//	}
+	//}
 
 }
 

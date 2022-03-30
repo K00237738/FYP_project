@@ -18,6 +18,7 @@ DataExtraction::DataExtraction()
 	//default values
 	level = 0;
 	kd = 0;
+	current_match = 0;
 	enemyStrength = false;
 	baseVulnerable = false;
 }
@@ -35,18 +36,57 @@ void DataExtraction::UserChampionData()
 
 void DataExtraction::RoleData()
 {//get chosen role data
-
+	short userInput;
+	bool checkLoop = true;
+	while (checkLoop)
+	{
+		cout << "\nPlease input what role you chose?\n1.Top lane\t2.Mid lane\n3.Bottom lane\t4.Support\n5.Jungle\n";
+		cin >> userInput;
+		switch (userInput)
+		{
+		case 1:
+			userRoleInput = MatchInfoData::TOP;
+			checkLoop = false;
+			break;
+		case 2:
+			userRoleInput = MatchInfoData::MIDLANE;
+			checkLoop = false;
+			break;
+		case 3:
+			userRoleInput = MatchInfoData::BOTTOM;
+			checkLoop = false;
+			break;
+		case 4:
+			userRoleInput = MatchInfoData::TOP;
+			checkLoop = false;
+			break;
+		case 5:
+			userRoleInput = MatchInfoData::SUPP;
+			checkLoop = false;
+			break;
+		case 6:
+			userRoleInput = MatchInfoData::JNGL;
+			checkLoop = false;
+			break;
+		default:
+			cout << "\nInput unknown, try again\n";
+			break;
+		}
+	}
 }
 
 //-------------------------- Data Gathering sequences
 void DataExtraction::MapMovementDataGathering()
 {
+	matches.push_back(MatchInfoData());
+	RoleData();
 	bool gameRunning = true;
 	int timePull = 35, gameTime = 0/*hour*/, fiveMins = 0;
 
 	clock_t clockTimer;
 	clockTimer = clock();
 	timePull *= CLOCKS_PER_SEC;
+
 
 	while (gameRunning)
 	{
@@ -100,9 +140,9 @@ void DataExtraction::ItemPurchaseDataGathering()
 
 bool DataExtraction::PullFromFile()
 {
-	string playername;
+	string playername, gameRunning;
 	short kills = 0, deaths = 0, playerlevel = 0, avglvl = 0;
-	float gameTime;
+	float gameTime = 0.0f;
 	//pull from file info
 	bool isGameRunning = false;
 
@@ -112,27 +152,31 @@ bool DataExtraction::PullFromFile()
 		IStreamWrapper wrapper(jsonIn);
 		Document d;
 		d.ParseStream(wrapper);
-		if (d.HasMember("playername") == true || d["playername"].IsString() == true)
+		if (d.HasMember("isGameRunning") == true && d["isGameRunning"].IsString() == true)
 		{
-			playername = d["playername"].GetInt();
+			gameRunning = d["isGameRunning"].GetString();
 		}
-		if (d.HasMember("kills") == true || d["kills"].IsInt() == true)
+		if (d.HasMember("playername") == true && d["playername"].IsString() == true)
+		{
+			playername = d["playername"].GetString();
+		}
+		if (d.HasMember("kills") == true && d["kills"].IsInt() == true)
 		{
 			kills = d["kills"].GetInt();
 		}
-		if (d.HasMember("deaths") == true || d["deaths"].IsInt() == true)
+		if (d.HasMember("deaths") == true && d["deaths"].IsInt() == true)
 		{
 			deaths = d["deaths"].GetInt();
 		}
-		if (d.HasMember("playerlevel") == true || d["playerlevel"].IsInt() == true)
+		if (d.HasMember("playerlevel") == true && d["playerlevel"].IsInt() == true)
 		{
 			playerlevel = d["playerlevel"].GetInt();
 		}
-		if (d.HasMember("avglevel") == true || d["avglevel"].IsInt() == true)
+		if (d.HasMember("avglevel") == true && d["avglevel"].IsInt() == true)
 		{
 			avglvl = d["avglevel"].GetInt();
 		}
-		if (d.HasMember("time") == true || d["time"].IsFloat() == true)
+		if (d.HasMember("time") == true && d["time"].IsFloat() == true)
 		{
 			gameTime = d["time"].GetFloat();
 		}
@@ -149,8 +193,9 @@ bool DataExtraction::PullFromFile()
 }
 
 //-------------------------- Specific Info
-void DataExtraction::TimeData(int timeEntry)
+void DataExtraction::TimeData(float timeInput)
 {
+	int timeEntry = timeInput/60;
 	/*
 	Game time breakdown
 	early1 - 5
@@ -163,31 +208,56 @@ void DataExtraction::TimeData(int timeEntry)
 	Typically when hitting 50 mins, some players are very high levels, sometimes max
 	So that is why it shall be cataegorized under late 2
 	*/
-
-	cout << "\n******************************************\n";
-	switch (timeEntry)
+	if (timeEntry <= 5)
 	{
-	case 1:
 		cout << "\nPhase of game: Early 1 (first early phase of the game length)\n";
 		gameTimeEntry = MatchInfoData::EARLY1;
-		break;
-	case 2:
-		cout << "\nPhase of game: Early 1 (second early phase of the game length, close to mid game)\n";
-		gameTimeEntry = MatchInfoData::EARLY2;
-		break;
-	case 3:
-		cout << "\nPhase of game: Early 1 (mid phase of the game length)\n";
-		gameTimeEntry = MatchInfoData::MID;
-		break;
-	case 4:
-		cout << "\nPhase of game: Early 1 (first late phase of the game length, a bit after mid game)\n";
-		gameTimeEntry = MatchInfoData::LATE1;
-		break;
-	default://default is last entry of a game
-		cout << "\nPhase of game: Early 1 (second late phase of the game length, near end game)\n";
-		gameTimeEntry = MatchInfoData::LATE2;
-		break;
 	}
+	else if (timeEntry <= 15)
+	{
+		cout << "\nPhase of game: Early 2 (second early phase of the game length, close to mid game)\n";
+		gameTimeEntry = MatchInfoData::EARLY2;
+	}
+	else if (timeEntry <= 25)
+	{
+		cout << "\nPhase of game: Mid (mid phase of the game length)\n";
+		gameTimeEntry = MatchInfoData::MID;
+	}
+	else if (timeEntry <= 35)
+	{
+		cout << "\nPhase of game: Late 1 (first late phase of the game length, a bit after mid game)\n";
+		gameTimeEntry = MatchInfoData::LATE1;
+	}
+	else//else is 45+
+	{
+		cout << "\nPhase of game: Late 2 (second late phase of the game length, near end game)\n";
+		gameTimeEntry = MatchInfoData::LATE2;
+	}
+
+	cout << "\n******************************************\n";
+	//switch (timeEntry)
+	//{
+	//case 1:
+	//	cout << "\nPhase of game: Early 1 (first early phase of the game length)\n";
+	//	gameTimeEntry = MatchInfoData::EARLY1;
+	//	break;
+	//case 2:
+	//	cout << "\nPhase of game: Early 1 (second early phase of the game length, close to mid game)\n";
+	//	gameTimeEntry = MatchInfoData::EARLY2;
+	//	break;
+	//case 3:
+	//	cout << "\nPhase of game: Early 1 (mid phase of the game length)\n";
+	//	gameTimeEntry = MatchInfoData::MID;
+	//	break;
+	//case 4:
+	//	cout << "\nPhase of game: Early 1 (first late phase of the game length, a bit after mid game)\n";
+	//	gameTimeEntry = MatchInfoData::LATE1;
+	//	break;
+	//default://default is last entry of a game
+	//	cout << "\nPhase of game: Early 1 (second late phase of the game length, near end game)\n";
+	//	gameTimeEntry = MatchInfoData::LATE2;
+	//	break;
+	//}
 
 }
 
@@ -293,26 +363,26 @@ void DataExtraction::LevelData(short lvlInput)
 
 void DataExtraction::EnemyStrengthData(short avglvl, short playerlvl)
 {
-	short userInput1;
-	while (true)
-	{
-		cout << "\nWas the opposing enemy strong (over all higher level and more items): \n1.Yes\t2.No \n";
-		cin >> userInput1;
-		if (userInput1 == 1)
-		{
-			enemyStrength = true;//they were stronger
-			break;
-		}
-		else if (userInput1 == 2)
-		{
-			enemyStrength = false;//they weren't stronger
-			break;
-		}
-		else
-		{
-			cout << "\nInput not recognized, please try again. \n";
-		}
-	}
+	//short userInput1;
+	//while (true)
+	//{
+	//	cout << "\nWas the opposing enemy strong (over all higher level and more items): \n1.Yes\t2.No \n";
+	//	cin >> userInput1;
+	//	if (userInput1 == 1)
+	//	{
+	//		enemyStrength = true;//they were stronger
+	//		break;
+	//	}
+	//	else if (userInput1 == 2)
+	//	{
+	//		enemyStrength = false;//they weren't stronger
+	//		break;
+	//	}
+	//	else
+	//	{
+	//		cout << "\nInput not recognized, please try again. \n";
+	//	}
+	//}
 }
 
 void DataExtraction::WasBaseVulnerableData()
@@ -324,12 +394,12 @@ void DataExtraction::WasBaseVulnerableData()
 		cin >> userInput1;
 		if (userInput1 == 1)
 		{
-			baseVulnerable = true;//they were stronger
+			baseVulnerable = true;
 			break;
 		}
 		else if (userInput1 == 2)
 		{
-			baseVulnerable = false;//they weren't stronger
+			baseVulnerable = false;
 			break;
 		}
 		else
@@ -341,31 +411,44 @@ void DataExtraction::WasBaseVulnerableData()
 
 void DataExtraction::KD_Data(short k, short d)
 {
-	short userInput1;
-	while (true)
+	//short userInput1;
+	//while (true)
+	//{
+	//	cout << "\nWas your Kill/Death ration: \n1.Good\t2.Even\n3.Bad \n";
+	//	cin >> userInput1;
+	//	if (userInput1 == 1 || userInput1 == 2 || userInput1 == 3)
+	//	{
+	//		switch (userInput1)
+	//		{
+	//		case 1:
+	//			userInput1 = 1;//had a better kd
+	//			break;
+	//		case 2:
+	//			userInput1 = 0;//even kd
+	//			break;
+	//		default:
+	//			userInput1 = -1;//bad kd
+	//			break;
+	//		}
+	//		break;
+	//	}
+	//	else
+	//	{
+	//		cout << "\nInput not recognized, please try again. \n";
+	//	}
+	//}
+
+	if (k < d)
 	{
-		cout << "\nWas your Kill/Death ration: \n1.Good\t2.Even\n3.Bad \n";
-		cin >> userInput1;
-		if (userInput1 == 1 || userInput1 == 2 || userInput1 == 3)
-		{
-			switch (userInput1)
-			{
-			case 1:
-				userInput1 = 1;//had a better kd
-				break;
-			case 2:
-				userInput1 = 0;//even kd
-				break;
-			default:
-				userInput1 = -1;//bad kd
-				break;
-			}
-			break;
-		}
-		else
-		{
-			cout << "\nInput not recognized, please try again. \n";
-		}
+		kd = -1;
+	}
+	else if (k > d)
+	{
+		kd = 1;
+	}
+	else// ==
+	{
+		kd = 0;
 	}
 }
 

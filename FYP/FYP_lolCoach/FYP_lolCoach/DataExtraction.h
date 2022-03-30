@@ -24,7 +24,7 @@ public:
 	void ItemPurchaseDataGathering();
 	bool PullFromFile();
 	//-------------------------- Specific Info
-	void TimeData(int timeEntry);
+	void TimeData(float timeInput);
 	void MapPositionData();
 	void LevelData(short lvlInput);
 	void EnemyStrengthData(short avglvl, short playerlvl);
@@ -38,8 +38,10 @@ private:
 	MatchInfoData::MapPositions mapPosEntry = MatchInfoData::B_BASE;
 	MatchInfoData::Roles userRoleInput = MatchInfoData::BOTTOM;
 	MatchInfoData::ChampionTypes userChampionInput = MatchInfoData::FIGHTER;
-	short level, kd;
+	float kd;
 	bool enemyStrength, baseVulnerable;
+	vector<MatchInfoData> matches;
+	int current_match, level, matchaveragelevel;
 
 
 protected:

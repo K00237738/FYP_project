@@ -12,19 +12,19 @@ void LogicalReasoning::ReasoningProcess()
 
 void LogicalReasoning::MapMovementReasoning(MatchInfoData matchData)
 {
-	timeDivide = matchData.GetEntries() / 5;
-	currentState = MatchInfoData::EARLY1;
-	UserChampionConsideration(matchData);
-	for (int i = 0; i < matchData.GetEntries(); i++)//cycle through all entires
-	{//loop though all entires
-		TimeConsideration(matchData, i);
-		MapPositionConsideration(matchData, i);
-		LevelConsideration(matchData);
-		EnemyStrengthConsideration(matchData);
-		BaseConsideration(matchData);
-		KD_Consideration(matchData);
-		RoleConsideration(matchData);
-	}
+	//timeDivide = matchData.GetEntries() / 5;
+	//currentState = MatchInfoData::EARLY1;
+	//UserChampionConsideration(matchData);
+	//for (int i = 0; i < matchData.GetEntries(); i++)//cycle through all entires
+	//{//loop though all entires
+	//	TimeConsideration(matchData, i);
+	//	MapPositionConsideration(matchData, i);
+	//	LevelConsideration(matchData);
+	//	EnemyStrengthConsideration(matchData);
+	//	BaseConsideration(matchData);
+	//	KD_Consideration(matchData);
+	//	RoleConsideration(matchData);
+	//}
 }
 //----------------------------------
 void LogicalReasoning::UserChampionConsideration(MatchInfoData matchData)
