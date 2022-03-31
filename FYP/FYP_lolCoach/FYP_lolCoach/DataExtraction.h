@@ -3,6 +3,7 @@
 #define DATA_EXTRACTION
 
 #include "MatchInfoData.h"
+#include "LogicalReasoning.h"
 
 using namespace std;
 
@@ -39,9 +40,10 @@ private:
 	MatchInfoData::Roles userRoleInput = MatchInfoData::BOTTOM;
 	MatchInfoData::ChampionTypes userChampionInput = MatchInfoData::FIGHTER;
 	float kd;
-	bool enemyStrength, baseVulnerable;
+	bool enemyStrength, baseVulnerable, startingTop;
 	vector<MatchInfoData> matches;
 	int current_match, level, matchaveragelevel, kills, deaths;
+	LogicalReasoning reasoning;
 
 
 protected:

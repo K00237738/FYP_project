@@ -23,6 +23,8 @@ DataExtraction::DataExtraction()
 	current_match = 0;
 	enemyStrength = false;
 	baseVulnerable = false;
+	startingTop = false;
+	reasoning = LogicalReasoning();
 }
 
 void DataExtraction::AskQuestions()
@@ -75,6 +77,26 @@ void DataExtraction::RoleData()
 			break;
 		}
 	}
+	checkLoop = true;
+	while (checkLoop)
+	{
+		cout << "\nPlease input if you are starting at the top or bottom of the map?\n1.Top\t2.Bottom\n";
+		cin >> userInput;
+		switch (userInput)
+		{
+		case 1://top
+			startingTop = true;
+			checkLoop = false;
+			break;
+		case 2://bot
+			startingTop = false;
+			checkLoop = false;
+			break;
+		default:
+			cout << "\nInput unknown, try again\n";
+			break;
+		}
+	}
 }
 
 //-------------------------- Data Gathering sequences
@@ -113,10 +135,12 @@ void DataExtraction::MapMovementDataGathering()
 			WasBaseVulnerableData();
 			fiveMins = 0;//reset fivemins mark
 		}
-		if (gameTime >= (3600 * CLOCKS_PER_SEC))
+		if (gameTime >= (3600 * CLOCKS_PER_SEC)/*5 mins*/)
 		{//hour reached, stop pulling from file
 			gameRunning = false;
 		}
+		//call logical reasoning
+
 
 	}
 
@@ -145,11 +169,18 @@ void DataExtraction::ItemPurchaseDataGathering()
 
 bool DataExtraction::PullFromFile()
 {
-	string playername, gameRunning;
-	short kills = 0, deaths = 0, playerlevel = 0, avglvl = 0;
+	string playername;
+	int gameRunning = 0, kills = 0, deaths = 0, playerlevel = 0, avglvl = 0;
 	float gameTime = 0.0f;
+	//bool isGameRunning = false;
+	// 
 	//pull from file info
-	bool isGameRunning = false;
+	/*
+	gameRunning = 
+	0 = it is not running
+	1 = it is running
+	-1 = the game is running but not started yet
+	*/
 
 	try
 	{
@@ -157,9 +188,9 @@ bool DataExtraction::PullFromFile()
 		IStreamWrapper wrapper(jsonIn);
 		Document d;
 		d.ParseStream(wrapper);
-		if (d.HasMember("isGameRunning") == true && d["isGameRunning"].IsString() == true)
+		if (d.HasMember("isGameRunning") == true && d["isGameRunning"].IsInt() == true)
 		{
-			gameRunning = d["isGameRunning"].GetString();
+			gameRunning = d["isGameRunning"].GetInt();
 		}
 		if (d.HasMember("playername") == true && d["playername"].IsString() == true)
 		{
@@ -192,9 +223,16 @@ bool DataExtraction::PullFromFile()
 	}
 	catch (exception e)
 	{
-
+		cout << "\n***Trobule pulling from the json file***" << endl;
 	}
-	return isGameRunning;
+	if (gameRunning == -1 || gameRunning == 1)
+	{//game is running
+		return true;
+	}
+	else
+	{//its finished
+		return false;
+	}
 }
 
 //-------------------------- Specific Info
