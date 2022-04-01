@@ -6,14 +6,15 @@ MatchInfoData::MatchInfoData()
 	entries = 0;
 }
 
-void MatchInfoData::AddEntry(GameTime time, MapPositions mposition, short level, 
-	bool Estrong, bool baseAttack, int KDstate)
+void MatchInfoData::AddEntry(GameTime timeEnum, float time, MapPositions mposition, short level,
+	int averagelevel, bool baseAttack, float KDstate)
 {//add entry for specifically feature 1
 	//add an entry, push back to the end so they are in order, e.g. first entry is first in vector
-	timestamps.push_back(time);//will use gametime enums
+	timestampsEnum.push_back(timeEnum);//will use gametime enums
+	timestampsFloats.push_back(time);
 	timePositions.push_back(mposition);//will use mapposition enums
-	timeLevels.push_back(level);//will take in a value from 1 - 18
-	wasEnemyStronger.push_back(Estrong);//boolean
+	playerlevel.push_back(level);//will take in a value from 1 - 18
+	avgLvls.push_back(averagelevel);//boolean
 	baseInDanger.push_back(baseAttack);//boolean
 	KDstates.push_back(KDstate);//will take a -1, 1, or 0
 	entries++;
@@ -28,7 +29,7 @@ int MatchInfoData::GetEntries()
 
 MatchInfoData::GameTime MatchInfoData::GetTime(int entry)
 {
-	return timestamps.at(entry);
+	return timestampsEnum.at(entry);
 }
 
 MatchInfoData::MapPositions MatchInfoData::GetPosition(int entry)
@@ -38,12 +39,12 @@ MatchInfoData::MapPositions MatchInfoData::GetPosition(int entry)
 
 short MatchInfoData::GetLevel(int entry)
 {
-	return timeLevels.at(entry);
+	return playerlevel.at(entry);
 }
 
-bool MatchInfoData::WasEnemyStronger(int entry)
+int MatchInfoData::GetAverageLvl(int entry)
 {
-	return wasEnemyStronger.at(entry);
+	return avgLvls.at(entry);
 }
 
 bool MatchInfoData::IsBaseUnderAttack(int entry)
@@ -51,7 +52,7 @@ bool MatchInfoData::IsBaseUnderAttack(int entry)
 	return baseInDanger.at(entry);
 }
 
-short MatchInfoData::GetKD(int entry)
+float MatchInfoData::GetKD(int entry)
 {
-	return entries;
+	return KDstates.at(entry);
 }

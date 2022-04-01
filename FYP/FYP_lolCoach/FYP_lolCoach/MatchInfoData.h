@@ -21,25 +21,25 @@ public:
 	MatchInfoData();
 	int GetEntries();
 	//--------------------------
-	void AddEntry(GameTime time, MapPositions mposition,
-		short level, bool Estrong, bool baseAttack, int KDstate);
+	void AddEntry(GameTime timeEnum, float time, MapPositions mposition, short level,
+		int averagelevel, bool baseAttack, float KDstate);
 	//--------------------------
 	GameTime GetTime(int entry);
 	MapPositions GetPosition(int entry);
 	short GetLevel(int entry);
-	bool WasEnemyStronger(int entry);
+	int GetAverageLvl(int entry);
 	bool IsBaseUnderAttack(int entry);
-	short GetKD(int entry);
+	float GetKD(int entry);
 
 
 private:
-	vector<GameTime> timestamps;
-	vector<float> timestamps2;//for game time parsed
+	vector<GameTime> timestampsEnum;
+	vector<float> timestampsFloats;//for game time parsed
 	vector<MapPositions> timePositions;
-	vector<short> timeLevels;
-	vector<bool> wasEnemyStronger;
+	vector<short> playerlevel;
+	vector<int> avgLvls;
 	vector<bool> baseInDanger;
-	vector<short> KDstates;
+	vector<float> KDstates;
 	int entries;
 	//-----not sure if will use theses below
 	Roles userRole;

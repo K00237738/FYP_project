@@ -20,8 +20,8 @@ public:
 	void UserChampionConsideration(MatchInfoData matchData);
 	void RoleConsideration(MatchInfoData matchData);
 	//-------------------------
-	void TimeConsideration(float time);
-	void MapPositionConsideration(MatchInfoData::Roles, MatchInfoData::MapPositions, int entry, bool isTop);
+	int MapPositionConsideration(MatchInfoData::Roles, MatchInfoData::MapPositions, int entry, bool isTop);
+	void TimeConsideration(MatchInfoData::GameTime time, int maxriskyness);
 	void LevelConsideration(MatchInfoData matchData);
 	void EnemyStrengthConsideration(MatchInfoData matchData);
 	void BaseConsideration(MatchInfoData matchData);
@@ -43,7 +43,7 @@ private:
 	int timeDivide = 0;
 	MatchInfoData::GameTime currentState;
 	int matchBreakUp, timeRisk, mapPosRisk;
-	int currentRiskyness, current_match_index, match_time_emtry;
+	int currentRiskyness, current_match_index, match_time_entry;
 
 protected:
 

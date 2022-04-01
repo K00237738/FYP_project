@@ -240,38 +240,38 @@ void DataExtraction::TimeData(float timeInput)
 {
 	int timeEntry = timeInput/60;
 	/*
-	Game time breakdown
-	early1 - 5
-	early2 - 15
-	mid - 25
-	late1 - 35
-	late2 - 45
-
-	average game tends to be about 45 - 50 mins or more for longer games.
-	Typically when hitting 50 mins, some players are very high levels, sometimes max
+	* Time break down
+	Early 1		<=6
+	Early 2		<=12
+	Mid			<=18
+	Late 1		<=24
+	Late 2		<=30+
+	
+	average game tends to be about 30 - 40 mins or more for longer games.
+	Typically when hitting 40 mins, some players are very high levels, sometimes max
 	So that is why it shall be cataegorized under late 2
 	*/
-	if (timeEntry <= 5)
+	if (timeEntry <= 6)
 	{
 		cout << "\nPhase of game: Early 1 (first early phase of the game length)\n";
 		gameTimeEntry = MatchInfoData::EARLY1;
 	}
-	else if (timeEntry <= 15)
+	else if (timeEntry <= 12)
 	{
 		cout << "\nPhase of game: Early 2 (second early phase of the game length, close to mid game)\n";
 		gameTimeEntry = MatchInfoData::EARLY2;
 	}
-	else if (timeEntry <= 25)
+	else if (timeEntry <= 18)
 	{
 		cout << "\nPhase of game: Mid (mid phase of the game length)\n";
 		gameTimeEntry = MatchInfoData::MID;
 	}
-	else if (timeEntry <= 35)
+	else if (timeEntry <= 24)
 	{
 		cout << "\nPhase of game: Late 1 (first late phase of the game length, a bit after mid game)\n";
 		gameTimeEntry = MatchInfoData::LATE1;
 	}
-	else//else is 45+
+	else//else is 30+
 	{
 		cout << "\nPhase of game: Late 2 (second late phase of the game length, near end game)\n";
 		gameTimeEntry = MatchInfoData::LATE2;
@@ -440,7 +440,7 @@ void DataExtraction::WasBaseVulnerableData()
 	short userInput1;
 	while (true)
 	{
-		cout << "\nWas the Base vulnerable (base turrets were exposed or under attack): \n1.Yes\t2.No \n";
+		cout << "\nIs the Base vulnerable (base turrets under attack or inhibitor(s) exposed): \n1.Yes\t2.No \n";
 		cin >> userInput1;
 		if (userInput1 == 1)
 		{
@@ -463,45 +463,6 @@ void DataExtraction::KD_Data(short k, short d)
 {
 	kills = k;
 	deaths = d;
-	//short userInput1;
-	//while (true)
-	//{
-	//	cout << "\nWas your Kill/Death ration: \n1.Good\t2.Even\n3.Bad \n";
-	//	cin >> userInput1;
-	//	if (userInput1 == 1 || userInput1 == 2 || userInput1 == 3)
-	//	{
-	//		switch (userInput1)
-	//		{
-	//		case 1:
-	//			userInput1 = 1;//had a better kd
-	//			break;
-	//		case 2:
-	//			userInput1 = 0;//even kd
-	//			break;
-	//		default:
-	//			userInput1 = -1;//bad kd
-	//			break;
-	//		}
-	//		break;
-	//	}
-	//	else
-	//	{
-	//		cout << "\nInput not recognized, please try again. \n";
-	//	}
-	//}
-
-	//if (k < d)
-	//{
-	//	kd = -1;
-	//}
-	//else if (k > d)
-	//{
-	//	kd = 1;
-	//}
-	//else// ==
-	//{
-	//	kd = 0;
-	//}
 }
 
 //-------------------------- Return Info
