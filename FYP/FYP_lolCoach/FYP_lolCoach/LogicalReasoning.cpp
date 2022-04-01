@@ -12,8 +12,16 @@ void LogicalReasoning::ReasoningProcess()
 	//sample method
 }
 
-void LogicalReasoning::MapMovementReasoning(MatchInfoData matchData)
+void LogicalReasoning::MapMovementReasoning(MatchInfoData& matchData)
 {
+	int index = matchData.GetEntries();
+	int positionrisk = MapPositionConsideration(matchData.GetUserRole(), matchData.GetPosition(index), index, matchData.IsUserTopSpawn());
+	TimeConsideration(matchData.GetTime(matchData.GetEntries() - 1), positionrisk);
+	LevelConsideration(matchData);
+	BaseConsideration(matchData);
+	KD_Consideration(matchData);
+	RoleConsideration(matchData);
+	 
 	//timeDivide = matchData.GetEntries() / 5;
 	//currentState = MatchInfoData::EARLY1;
 	//UserChampionConsideration(matchData);
@@ -471,7 +479,7 @@ void LogicalReasoning::TimeConsideration(MatchInfoData::GameTime time, int maxri
 	}
 }
 
-void LogicalReasoning::LevelConsideration(MatchInfoData matchData)
+void LogicalReasoning::LevelConsideration(MatchInfoData& matchData)
 {
 	float levelratio = (matchData.GetLevel(match_time_entry)/ matchData.GetAverageLvl(match_time_entry));
 	/*switch (matchData.GetTime(match_time_entry))
@@ -518,12 +526,12 @@ void LogicalReasoning::LevelConsideration(MatchInfoData matchData)
 	}
 }
 
-void LogicalReasoning::EnemyStrengthConsideration(MatchInfoData matchData)
-{
-	//may not need this
-}
+//void LogicalReasoning::EnemyStrengthConsideration(MatchInfoData& matchData)
+//{
+//	//may not need this
+//}
 
-void LogicalReasoning::BaseConsideration(MatchInfoData matchData)
+void LogicalReasoning::BaseConsideration(MatchInfoData& matchData)
 {	
 	if (matchData.IsBaseUnderAttack(match_time_entry))
 	{//base under attack
@@ -535,7 +543,7 @@ void LogicalReasoning::BaseConsideration(MatchInfoData matchData)
 	}
 }
 
-void LogicalReasoning::KD_Consideration(MatchInfoData matchData)
+void LogicalReasoning::KD_Consideration(MatchInfoData& matchData)
 {
 	if (matchData.GetKD(match_time_entry) <= -1)
 	{

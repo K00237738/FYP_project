@@ -18,7 +18,7 @@ public:
 		MARKSMAN, SLAYER, TANK, SPECIAL};
 	//--------------------------
 
-	MatchInfoData();
+	MatchInfoData(Roles playerRole, bool isTop);
 	int GetEntries();
 	//--------------------------
 	void AddEntry(GameTime timeEnum, float time, MapPositions mposition, short level,
@@ -30,6 +30,8 @@ public:
 	int GetAverageLvl(int entry);
 	bool IsBaseUnderAttack(int entry);
 	float GetKD(int entry);
+	Roles GetUserRole();
+	bool IsUserTopSpawn();
 
 
 private:
@@ -43,7 +45,8 @@ private:
 	int entries;
 	//-----not sure if will use theses below
 	Roles userRole;
-	ChampionTypes userChampion;
+	//ChampionTypes userChampion;
+	bool isTopSpawn;
 
 protected:
 

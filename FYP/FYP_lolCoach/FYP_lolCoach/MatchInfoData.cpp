@@ -1,9 +1,11 @@
 #include "MatchInfoData.h"
 
-MatchInfoData::MatchInfoData()
+MatchInfoData::MatchInfoData(Roles playerRole, bool isTop)
 {
+	userRole = playerRole;
 	//might have to add a match id for each packet
 	entries = 0;
+	isTopSpawn = isTop;
 }
 
 void MatchInfoData::AddEntry(GameTime timeEnum, float time, MapPositions mposition, short level,
@@ -19,6 +21,17 @@ void MatchInfoData::AddEntry(GameTime timeEnum, float time, MapPositions mpositi
 	KDstates.push_back(KDstate);//will take a -1, 1, or 0
 	entries++;
 	//might have data check for correct input in data gathering class
+}
+
+//access methods
+MatchInfoData::Roles MatchInfoData::GetUserRole()
+{
+	return userRole;
+}
+
+bool MatchInfoData::IsUserTopSpawn()
+{
+	return isTopSpawn;
 }
 
 //access methods

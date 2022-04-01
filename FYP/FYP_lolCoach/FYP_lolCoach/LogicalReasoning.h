@@ -15,17 +15,17 @@ class LogicalReasoning
 public:
 	LogicalReasoning();
 	void ReasoningProcess();//sample method so class has something for now
-	void MapMovementReasoning(MatchInfoData matchData);
+	void MapMovementReasoning(MatchInfoData& matchData);
 	//-------------------------
 	void UserChampionConsideration(MatchInfoData matchData);
 	void RoleConsideration(MatchInfoData matchData);
 	//-------------------------
 	int MapPositionConsideration(MatchInfoData::Roles, MatchInfoData::MapPositions, int entry, bool isTop);
 	void TimeConsideration(MatchInfoData::GameTime time, int maxriskyness);
-	void LevelConsideration(MatchInfoData matchData);
-	void EnemyStrengthConsideration(MatchInfoData matchData);
-	void BaseConsideration(MatchInfoData matchData);
-	void KD_Consideration(MatchInfoData matchData);
+	void LevelConsideration(MatchInfoData& matchData);
+	void EnemyStrengthConsideration(MatchInfoData& matchData);
+	void BaseConsideration(MatchInfoData& matchData);
+	void KD_Consideration(MatchInfoData& matchData);
 
 private:
 	/*

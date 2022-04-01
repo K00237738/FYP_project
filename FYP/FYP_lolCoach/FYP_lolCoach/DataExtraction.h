@@ -32,7 +32,7 @@ public:
 	void WasBaseVulnerableData();
 	void KD_Data(short k, short d);
 	//-------------------------- Return Info
-	MatchInfoData ReturnData();
+	MatchInfoData ReturnData(int matchindex);
 
 private:
 	MatchInfoData::GameTime gameTimeEntry = MatchInfoData::EARLY1;//default values

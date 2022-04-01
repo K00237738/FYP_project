@@ -102,7 +102,7 @@ void DataExtraction::RoleData()
 //-------------------------- Data Gathering sequences
 void DataExtraction::MapMovementDataGathering()
 {
-	matches.push_back(MatchInfoData());
+	matches.push_back(MatchInfoData(userRoleInput, startingTop));
 	current_match++;
 	RoleData();
 	matches.at(current_match-1);
@@ -143,17 +143,6 @@ void DataExtraction::MapMovementDataGathering()
 
 
 	}
-
-
-	//for (int i = 0; i < 5; i++)//match is always split into 5 segments
-	//{
-	//	TimeData(i);
-	//	MapPositionData();
-	//	LevelData();
-	//	EnemyStrengthData();
-	//	WasBaseVulnerableData();
-	//	KD_Data();
-	//}
 
 }
 
@@ -466,7 +455,14 @@ void DataExtraction::KD_Data(short k, short d)
 }
 
 //-------------------------- Return Info
-MatchInfoData DataExtraction::ReturnData()
+MatchInfoData DataExtraction::ReturnData(int matchindex)
 {
-	return MatchInfoData();
+	if (matchindex >= matches.size() || matchindex < 0)
+	{
+		return matches.at(matches.size() - 1);
+	}
+	else
+	{
+		return matches.at(matchindex);
+	}
 }
