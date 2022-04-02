@@ -1,4 +1,8 @@
 #include "LogicalReasoning.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string>
 
 LogicalReasoning::LogicalReasoning()
 {
@@ -12,8 +16,10 @@ void LogicalReasoning::ReasoningProcess()
 	//sample method
 }
 
-void LogicalReasoning::MapMovementReasoning(MatchInfoData& matchData)
+string LogicalReasoning::MapMovementReasoning(MatchInfoData& matchData)
 {
+	riskAmplifications = 0;//reset risk levels value
+	string advice = "";
 	int index = matchData.GetEntries();
 	int positionrisk = MapPositionConsideration(matchData.GetUserRole(), matchData.GetPosition(index), index, matchData.IsUserTopSpawn());
 	TimeConsideration(matchData.GetTime(matchData.GetEntries() - 1), positionrisk);
@@ -21,20 +27,204 @@ void LogicalReasoning::MapMovementReasoning(MatchInfoData& matchData)
 	BaseConsideration(matchData);
 	KD_Consideration(matchData);
 	RoleConsideration(matchData);
-	 
-	//timeDivide = matchData.GetEntries() / 5;
-	//currentState = MatchInfoData::EARLY1;
-	//UserChampionConsideration(matchData);
-	//for (int i = 0; i < matchData.GetEntries(); i++)//cycle through all entires
-	//{//loop though all entires
-	//	TimeConsideration(matchData, i);
-	//	MapPositionConsideration(matchData, i);
-	//	LevelConsideration(matchData);
-	//	EnemyStrengthConsideration(matchData);
-	//	BaseConsideration(matchData);
-	//	KD_Consideration(matchData);
-	//	RoleConsideration(matchData);
-	//}
+
+	//------------Make a decision----------
+	float safeFactor = currentRiskyness / (TOO_RISKY * riskAmplifications/*get mask risk from all the calulations*/);
+	//gets how risky the player is on a scale of 0 - 1. Then use that as a measure of how safe to play
+	// so if too risky, play safer. if too safe, player more risky
+	//decide whether to push forward or pull back player (move or stay)
+	srand(time(0));
+	int randomPercent = (rand()%20)+1;//use random num
+	if (randomPercent < 10) { randomPercent += 10; }//make sure its between 10 - 20% incvrease
+	float randomrisk = (1 - safeFactor)* (randomPercent/100);//get 10 - 20% of less favoured judgement 
+	//and increase less favoured judgement by given amount by docking down safefactor
+	safeFactor -= randomrisk;//dock down safe factor
+
+	srand(time(0));
+	randomPercent = (rand() % 100)+1;//get value between 1 - 100
+	float reasoningRoll = randomPercent/100;//so it will be between 0 - 1
+	if (reasoningRoll <= safeFactor)
+	{//stay
+		srand(time(0));
+		randomPercent = (rand() % 20) + 1;
+		randomrisk = (1 - safeFactor) * (randomPercent / 100);
+
+		srand(time(0));
+		randomPercent = (rand() % 100) + 1;
+		reasoningRoll = randomPercent / 100;
+		if (reasoningRoll <= safeFactor)
+		{//protect lane
+			if (!matchData.GetUserRole() == MatchInfoData::JNGL)
+			{//top, mid, bot, support roles
+				advice = "\nStay in current lane and protect turret.\n";
+				if(matchData.GetTime(match_time_entry) >= MatchInfoData::MID)//if time is mid or over
+				{//lane turrets may be defeated by then
+					advice += "If lane turrets are defated, defend base turret areas for lane.";
+				}
+				return advice;
+			}
+			else
+			{//jungle role
+				switch (matchData.GetPosition(match_time_entry))
+				{
+					case MatchInfoData::B_TOPJNG: case MatchInfoData::B_BOTJNG: case MatchInfoData::T_TOPJNG:
+					case MatchInfoData::T_BOTJNG:
+						advice = "\nStay and clear out camps.\n";
+						break;
+					default://every other lane
+						advice = "\nStay in current lane and protect turret.\n";
+						if (matchData.GetTime(match_time_entry) >= MatchInfoData::MID)//if time is mid or over
+						{//lane turrets may be defeated by then
+							advice += "If lane turrets are defated, defend base turret areas for lane.";
+						}
+						break;
+				}
+				return advice;
+			}
+		}
+		else
+		{//push lane
+			if (!matchData.GetUserRole() == MatchInfoData::JNGL)
+			{//top, mid, bot, support roles
+				advice = "\nPush opposing lane and turret.\n";
+				if (matchData.GetTime(match_time_entry) >= MatchInfoData::MID)//if time is mid or over
+				{//lane turrets may be defeated by then
+					advice += "If opposing lane turrets defated, push enemy base.";
+				}
+				return advice;
+			}
+			else
+			{//jungle role
+				switch (matchData.GetPosition(match_time_entry))
+				{
+				case MatchInfoData::B_TOPJNG: case MatchInfoData::B_BOTJNG: case MatchInfoData::T_TOPJNG:
+				case MatchInfoData::T_BOTJNG:
+					advice = "\nExplore and push enemy jungle across from your current position.\n";
+					break;
+				default://every other lane
+					advice = "\nPush opposing lane and turret.\n";
+					if (matchData.GetTime(match_time_entry) >= MatchInfoData::MID)//if time is mid or over
+					{//lane turrets may be defeated by then
+						advice += "If lane turrets are defated, defend base turret areas for lane.";
+					}
+					break;
+				}
+				return advice;
+			}
+
+		}
+	}
+	else
+	{//shift
+		int top, mid, bot, t_jungle, b_jungle;
+		switch (matchData.GetUserRole())
+		{
+			case MatchInfoData::TOP:
+				top = 50;
+				mid = 25;
+				bot = 15;
+				t_jungle = 5;
+				b_jungle = 5;
+					break;
+			case MatchInfoData::MIDLANE:
+				mid = 50;
+				top = 25;
+				bot = 15;
+				t_jungle = 5;
+				b_jungle = 5;
+				break;
+			case MatchInfoData::BOTTOM:
+				bot = 50;
+				mid = 25;
+				top = 15;
+				t_jungle = 5;
+				b_jungle = 5;
+				break;
+			case MatchInfoData::SUPP:
+				bot = 50;
+				mid = 25;
+				top = 15;
+				t_jungle = 5;
+				b_jungle = 5;
+				break;
+			default://jungle
+				t_jungle = 35;
+				b_jungle = 35;
+				bot = 10;
+				top = 10;
+				mid = 10;
+				break;
+		}
+
+		//decide to push or protect shifted lane
+		srand(time(0));
+		randomPercent = (rand() % 20) + 1;
+		randomrisk = (1 - safeFactor) * (randomPercent / 100);
+
+		srand(time(0));
+		randomPercent = (rand() % 100) + 1;
+		reasoningRoll = randomPercent / 100;
+		if (reasoningRoll <= safeFactor)
+		{//protect lane
+			if (!matchData.GetUserRole() == MatchInfoData::JNGL)
+			{//top, mid, bot, support roles
+				advice += "\nProtect lane turret.\n";
+				if (matchData.GetTime(match_time_entry) >= MatchInfoData::MID)//if time is mid or over
+				{//lane turrets may be defeated by then
+					advice += "If lane turrets are defated, defend base turret areas for lane.";
+				}
+				return advice;
+			}
+			else
+			{//jungle role
+				switch (matchData.GetPosition(match_time_entry))
+				{
+				case MatchInfoData::B_TOPJNG: case MatchInfoData::B_BOTJNG: case MatchInfoData::T_TOPJNG:
+				case MatchInfoData::T_BOTJNG:
+					advice = "\nClear out camps.\n";
+					break;
+				default://every other lane
+					advice = "\nProtect lane turret.\n";
+					if (matchData.GetTime(match_time_entry) >= MatchInfoData::MID)//if time is mid or over
+					{//lane turrets may be defeated by then
+						advice += "If lane turrets are defated, defend base turret areas for lane.";
+					}
+					break;
+				}
+				return advice;
+			}
+		}
+		else
+		{//push lane
+			if (!matchData.GetUserRole() == MatchInfoData::JNGL)
+			{//top, mid, bot, support roles
+				advice = "\nPush opposing lane and turret.\n";
+				if (matchData.GetTime(match_time_entry) >= MatchInfoData::MID)//if time is mid or over
+				{//lane turrets may be defeated by then
+					advice += "If opposing lane turrets defated, push enemy base.";
+				}
+				return advice;
+			}
+			else
+			{//jungle role
+				switch (matchData.GetPosition(match_time_entry))
+				{
+				case MatchInfoData::B_TOPJNG: case MatchInfoData::B_BOTJNG: case MatchInfoData::T_TOPJNG:
+				case MatchInfoData::T_BOTJNG:
+					advice = "\nExplore and push enemy jungle across from your current position.\n";
+					break;
+				default://every other lane
+					advice = "\nPush opposing lane and turret.\n";
+					if (matchData.GetTime(match_time_entry) >= MatchInfoData::MID)//if time is mid or over
+					{//lane turrets may be defeated by then
+						advice += "If lane turrets are defated, defend base turret areas for lane.";
+					}
+					break;
+				}
+				return advice;
+			}
+		}
+	}
 }
 //----------------------------------
 void LogicalReasoning::UserChampionConsideration(MatchInfoData matchData)
@@ -296,7 +486,8 @@ int LogicalReasoning::MapPositionConsideration(MatchInfoData::Roles userRole, Ma
 	default:
 		break;
 	}
-	return (TOO_RISKY * TOO_RISKY);//return mask risklevel
+	riskAmplifications += 2;
+	return (TOO_RISKY * TOO_RISKY);//return mask risklevel of this method
 }
 
 void LogicalReasoning::TimeConsideration(MatchInfoData::GameTime time, int maxriskyness)
@@ -477,6 +668,7 @@ void LogicalReasoning::TimeConsideration(MatchInfoData::GameTime time, int maxri
 	default:
 		break;
 	}
+	riskAmplifications += 1;
 }
 
 void LogicalReasoning::LevelConsideration(MatchInfoData& matchData)
@@ -524,6 +716,7 @@ void LogicalReasoning::LevelConsideration(MatchInfoData& matchData)
 	{
 		currentRiskyness *= TOO_SAFE;
 	}
+	riskAmplifications += 1;
 }
 
 //void LogicalReasoning::EnemyStrengthConsideration(MatchInfoData& matchData)
@@ -541,6 +734,7 @@ void LogicalReasoning::BaseConsideration(MatchInfoData& matchData)
 	{
 		currentRiskyness *= SAFE;
 	}
+	riskAmplifications += 1;
 }
 
 void LogicalReasoning::KD_Consideration(MatchInfoData& matchData)
@@ -565,4 +759,5 @@ void LogicalReasoning::KD_Consideration(MatchInfoData& matchData)
 	{
 		currentRiskyness *= SAFE;
 	}
+	riskAmplifications += 1;
 }

@@ -2,6 +2,7 @@
 #ifndef LOGICAL_REASONING
 #define LOGICAL_REASONING
 #include "MatchInfoData.h"
+#include <string>
 
 using namespace std;
 
@@ -15,7 +16,7 @@ class LogicalReasoning
 public:
 	LogicalReasoning();
 	void ReasoningProcess();//sample method so class has something for now
-	void MapMovementReasoning(MatchInfoData& matchData);
+	string MapMovementReasoning(MatchInfoData& matchData);
 	//-------------------------
 	void UserChampionConsideration(MatchInfoData matchData);
 	void RoleConsideration(MatchInfoData matchData);
@@ -26,6 +27,7 @@ public:
 	void EnemyStrengthConsideration(MatchInfoData& matchData);
 	void BaseConsideration(MatchInfoData& matchData);
 	void KD_Consideration(MatchInfoData& matchData);
+	//-------------------------
 
 private:
 	/*
@@ -40,7 +42,8 @@ private:
 	enum RISKLEVEL { TOO_SAFE = 1, SAFE, LITTLE_MODERATE, 
 		MODERATE, OVER_MODERATE, RISKY, TOO_RISKY };
 	RISKLEVEL riskyness;
-	int timeDivide = 0;
+	int riskAmplifications = 0;//the amount of levels of risk multiplied, 
+	//so max amount of risk can be calulated
 	MatchInfoData::GameTime currentState;
 	int matchBreakUp, timeRisk, mapPosRisk;
 	int currentRiskyness, current_match_index, match_time_entry;
