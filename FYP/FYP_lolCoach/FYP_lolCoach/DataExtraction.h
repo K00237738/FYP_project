@@ -44,6 +44,7 @@ private:
 	vector<MatchInfoData> matches;
 	int current_match, level, matchaveragelevel, kills, deaths;
 	LogicalReasoning reasoning;
+	void PythonThread();
 
 
 protected:

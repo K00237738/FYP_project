@@ -113,7 +113,7 @@ string LogicalReasoning::MapMovementReasoning(MatchInfoData& matchData)
 			}
 
 		}
-	}
+	}//stay end----------------------------------------------
 	else
 	{//shift
 		int top, mid, bot, t_jungle, b_jungle;
@@ -124,7 +124,7 @@ string LogicalReasoning::MapMovementReasoning(MatchInfoData& matchData)
 				mid = 25;
 				bot = 15;
 				t_jungle = 5;
-				b_jungle = 5;
+				b_jungle = 5;//all adds up to 100
 					break;
 			case MatchInfoData::MIDLANE:
 				mid = 50;
@@ -133,14 +133,7 @@ string LogicalReasoning::MapMovementReasoning(MatchInfoData& matchData)
 				t_jungle = 5;
 				b_jungle = 5;
 				break;
-			case MatchInfoData::BOTTOM:
-				bot = 50;
-				mid = 25;
-				top = 15;
-				t_jungle = 5;
-				b_jungle = 5;
-				break;
-			case MatchInfoData::SUPP:
+			case MatchInfoData::BOTTOM: case MatchInfoData::SUPP:
 				bot = 50;
 				mid = 25;
 				top = 15;
@@ -155,6 +148,9 @@ string LogicalReasoning::MapMovementReasoning(MatchInfoData& matchData)
 				mid = 10;
 				break;
 		}
+
+		//decide where to shift
+		advice += MapShifting(top, mid, bot, t_jungle, b_jungle, matchData.GetUserRole(), matchData.IsUserTopSpawn());
 
 		//decide to push or protect shifted lane
 		srand(time(0));
@@ -224,7 +220,118 @@ string LogicalReasoning::MapMovementReasoning(MatchInfoData& matchData)
 				return advice;
 			}
 		}
+	}//shift end ----------------------------------------------
+}
+
+string LogicalReasoning::MapShifting(int& top, int& mid, int& bot, int& t_jungle, int& b_jungle, MatchInfoData::Roles userRole, bool isTop)
+{
+	string advice = "";
+	srand(time(0));
+	int randomPercent = (rand() % 100) + 1;//use random num
+	if (isTop)
+	{
+		advice += "\nShift to top side ";
 	}
+	else
+	{
+		advice += "\nShift to bottom side ";
+	}
+
+	switch (userRole)
+	{
+	case MatchInfoData::TOP:		
+		if (randomPercent <= (top))
+		{
+			advice += "top lane ";
+		}
+		else if (randomPercent <= (top+mid))
+		{
+			advice += "mid lane ";
+		}
+		else if (randomPercent <= (top + mid + bot))
+		{
+			advice += "bottom lane ";
+		}
+		else if (randomPercent <= (top + mid + bot+ t_jungle))
+		{
+			advice += "top jungle area ";
+		}
+		else
+		{
+			advice += "bottom jungle area ";
+		}
+		break;
+	case MatchInfoData::MIDLANE:
+		if (randomPercent <= (mid))
+		{
+			advice += "mid lane ";
+		}
+		else if (randomPercent <= (mid + top))
+		{
+			advice += "top lane ";
+		}
+		else if (randomPercent <= (mid + top + bot))
+		{
+			advice += "bottom lane ";
+		}
+		else if (randomPercent <= (top + mid + bot + t_jungle))
+		{
+			advice += "top jungle area ";
+		}
+		else
+		{
+			advice += "bottom jungle area ";
+		}
+
+		break;
+	case MatchInfoData::BOTTOM: case MatchInfoData::SUPP:
+		if (randomPercent <= (bot))
+		{
+			advice += "bottom lane ";
+		}
+		else if (randomPercent <= (bot + mid))
+		{
+			advice += "mid lane ";
+		}
+		else if (randomPercent <= (bot + mid + top))
+		{
+			advice += "top lane ";
+		}
+		else if (randomPercent <= (bot + mid + top + b_jungle))
+		{
+			advice += "bottom jungle area ";
+		}
+		else
+		{
+			advice += "top jungle area ";
+		}
+
+		break;
+	default://jungle
+		if (randomPercent <= (t_jungle))
+		{
+			advice += "top jungle area ";
+		}
+		else if (randomPercent <= (t_jungle + b_jungle))
+		{
+			advice += "bottom jungle area ";
+		}
+		else if (randomPercent <= (t_jungle + b_jungle + top))
+		{
+			advice += "top lane ";
+		}
+		else if (randomPercent <= (t_jungle + b_jungle + top + bot))
+		{
+			advice += "bot lane ";
+		}
+		else
+		{
+			advice += "mid lane ";
+		}
+
+		break;
+	}
+	return advice;
 }
 //----------------------------------
 void LogicalReasoning::UserChampionConsideration(MatchInfoData matchData)

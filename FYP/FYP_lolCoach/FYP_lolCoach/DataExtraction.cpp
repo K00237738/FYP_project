@@ -9,6 +9,7 @@
 //#include <rapidjson/stringbuffer.h>
 //#include <rapidjson/writer.h>
 #include <fstream>
+#include <thread>
 
 using namespace rapidjson;
 using namespace std;
@@ -100,21 +101,56 @@ void DataExtraction::RoleData()
 }
 
 //-------------------------- Data Gathering sequences
+void DataExtraction::PythonThread()
+{//run pyth script
+	string command = "python main.py";
+	system(command.c_str());
+}
 void DataExtraction::MapMovementDataGathering()
 {
 	matches.push_back(MatchInfoData(userRoleInput, startingTop));
 	current_match++;
 	RoleData();
 	matches.at(current_match-1);
-	bool gameRunning = true;
+	bool gameRunning = false;
 	int timePull = 35, gameTime = 0/*hour*/, fiveMins = 0;
+	string userinput;
+
+	while (gameRunning == false)
+	{
+		cout << "\nThis program requires the game to be running, are you spawned in the game map?\n1.Yes\t2.No\n";
+		cin >> userinput;
+		if (userinput.compare("Yes") || userinput.compare("1"))
+		{
+			gameRunning = true;
+		}
+		else if (userinput.compare("No") || userinput.compare("2"))
+		{
+			cout << "\nWould you like to stop this program prematurely?\n1.Yes\t2.No\n";
+			cin >> userinput;
+			if (userinput.compare("Yes") || userinput.compare("1"))
+			{
+				return;
+			}
+			else
+			{
+				cout << "\nInput not recognized, try again\n";
+			}
+		}
+		else
+		{
+			cout << "\nInput not recognized, try again\n";
+		}
+	}
+	//call thread
+	thread pthyonthreadcall(&DataExtraction::PythonThread, DataExtraction());
 
 	clock_t clockTimer;
 	clockTimer = clock();
 	timePull *= CLOCKS_PER_SEC;
 
 
-	while (gameRunning)
+	while (gameRunning == true)
 	{
 		//every 35 seconds, read file
 		//every 5 mins, ask player questions on whereabouts and
@@ -139,11 +175,12 @@ void DataExtraction::MapMovementDataGathering()
 		{//hour reached, stop pulling from file
 			gameRunning = false;
 		}
+		cout << reasoning.MapMovementReasoning(matches.at(current_match - 1));
 		//call logical reasoning
 
 
 	}
-
+	pthyonthreadcall.join();
 }
 
 void DataExtraction::CombatEngagementDataGathering()

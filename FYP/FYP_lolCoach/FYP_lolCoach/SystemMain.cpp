@@ -4,8 +4,10 @@
 SystemMain::SystemMain()
 {
 	//initialize variables
-	userName = "RetroTiger";
-	passWord = "theBestGamer97";
+	/*userName = "RetroTiger";
+	passWord = "theBestGamer97";*/
+	userName = "student";
+	passWord = "password";
 	apiKey = "559-889-723";
 }
 
@@ -15,7 +17,7 @@ void SystemMain::EngineMain()
 	{
 		ExitProcedure();
 	}
-	GetUserRole();
+	//GetUserRole();
 	GetPreferedChamp();
 	DecideAdvice();
 }

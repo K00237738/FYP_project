@@ -17,6 +17,7 @@ public:
 	LogicalReasoning();
 	void ReasoningProcess();//sample method so class has something for now
 	string MapMovementReasoning(MatchInfoData& matchData);
+	string MapShifting(int& top, int& mid, int& bot, int& t_jungle, int& b_jungle, MatchInfoData::Roles userRole, bool isTop);//method to carryout where to shift to in map
 	//-------------------------
 	void UserChampionConsideration(MatchInfoData matchData);
 	void RoleConsideration(MatchInfoData matchData);
