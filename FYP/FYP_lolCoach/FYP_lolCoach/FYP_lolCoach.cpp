@@ -18,12 +18,12 @@ int main()
     std::cout << "This is gonna be my FYP!\n";
     //TestHeader t1;
     //t1.ReadJsonMethod();
-    //SystemMain h1;
-    //h1.EngineMain();
+    SystemMain h1;
+    h1.EngineMain();
     
-    thread pthyonthreadcall(test);
+   /* thread pthyonthreadcall(test);
     std::cout << "Still running\n";
     test();
-    pthyonthreadcall.join();
+    pthyonthreadcall.join();*/
 
 }

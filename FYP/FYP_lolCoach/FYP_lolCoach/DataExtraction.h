@@ -39,7 +39,7 @@ private:
 	MatchInfoData::MapPositions mapPosEntry = MatchInfoData::B_BASE;
 	MatchInfoData::Roles userRoleInput = MatchInfoData::BOTTOM;
 	MatchInfoData::ChampionTypes userChampionInput = MatchInfoData::FIGHTER;
-	float kd;
+	float kd, gameTimefloat;
 	bool enemyStrength, baseVulnerable, startingTop;
 	vector<MatchInfoData> matches;
 	int current_match, level, matchaveragelevel, kills, deaths;

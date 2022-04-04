@@ -20,7 +20,7 @@ string LogicalReasoning::MapMovementReasoning(MatchInfoData& matchData)
 {
 	riskAmplifications = 0;//reset risk levels value
 	string advice = "";
-	int index = matchData.GetEntries();
+	int index = matchData.GetEntries()-1;
 	int positionrisk = MapPositionConsideration(matchData.GetUserRole(), matchData.GetPosition(index), index, matchData.IsUserTopSpawn());
 	TimeConsideration(matchData.GetTime(matchData.GetEntries() - 1), positionrisk);
 	LevelConsideration(matchData);

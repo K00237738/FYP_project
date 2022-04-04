@@ -102,16 +102,18 @@ void DataExtraction::RoleData()
 
 //-------------------------- Data Gathering sequences
 void DataExtraction::PythonThread()
-{//run pyth script
+{//run pyth script for a thread
+	cout << "Running python script" << endl;
 	string command = "python main.py";
 	system(command.c_str());
 }
 void DataExtraction::MapMovementDataGathering()
 {
+	cout << "Starting map movement gathering" << endl;
 	matches.push_back(MatchInfoData(userRoleInput, startingTop));
 	current_match++;
 	RoleData();
-	matches.at(current_match-1);
+	//matches.at(current_match-1);
 	bool gameRunning = false;
 	int timePull = 35, gameTime = 0/*hour*/, fiveMins = 0;
 	string userinput;
@@ -142,14 +144,16 @@ void DataExtraction::MapMovementDataGathering()
 			cout << "\nInput not recognized, try again\n";
 		}
 	}
-	//call thread
-	thread pthyonthreadcall(&DataExtraction::PythonThread, DataExtraction());
+	//call thread to execute python script
+	//thread pthyonthreadcall(&DataExtraction::PythonThread, DataExtraction());
+	//this was removed as it halted up parent process sometimes
 
 	clock_t clockTimer;
 	clockTimer = clock();
 	timePull *= CLOCKS_PER_SEC;
 
 
+	cout << "Starting gatherloop" << endl;
 	while (gameRunning == true)
 	{
 		//every 35 seconds, read file
@@ -175,12 +179,14 @@ void DataExtraction::MapMovementDataGathering()
 		{//hour reached, stop pulling from file
 			gameRunning = false;
 		}
-		cout << reasoning.MapMovementReasoning(matches.at(current_match - 1));
+		//cout << reasoning.MapMovementReasoning(matches.at(current_match - 1));
+		cout << "Stored entry" << endl;
+		matches.at(current_match - 1).AddEntry(gameTimeEntry, gameTimefloat, mapPosEntry, level, matchaveragelevel, baseVulnerable, kd);
 		//call logical reasoning
-
+		cout << reasoning.MapMovementReasoning(matches.at(current_match - 1)) << endl;
 
 	}
-	pthyonthreadcall.join();
+	//pthyonthreadcall.join();
 }
 
 void DataExtraction::CombatEngagementDataGathering()
@@ -195,6 +201,7 @@ void DataExtraction::ItemPurchaseDataGathering()
 
 bool DataExtraction::PullFromFile()
 {
+	cout << "Pulling from file" << endl;
 	string playername;
 	int gameRunning = 0, kills = 0, deaths = 0, playerlevel = 0, avglvl = 0;
 	float gameTime = 0.0f;
@@ -246,6 +253,7 @@ bool DataExtraction::PullFromFile()
 		LevelData(playerlevel, avglvl);
 		EnemyStrengthData(avglvl);
 		KD_Data(kills, deaths);
+
 	}
 	catch (exception e)
 	{
@@ -265,6 +273,7 @@ bool DataExtraction::PullFromFile()
 void DataExtraction::TimeData(float timeInput)
 {
 	int timeEntry = timeInput/60;
+	gameTimefloat = timeInput;
 	/*
 	* Time break down
 	Early 1		<=6
@@ -489,6 +498,7 @@ void DataExtraction::KD_Data(short k, short d)
 {
 	kills = k;
 	deaths = d;
+	kd = (float)k / (float)d;
 }
 
 //-------------------------- Return Info

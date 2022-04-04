@@ -13,10 +13,10 @@ SystemMain::SystemMain()
 
 void SystemMain::EngineMain()
 {
-	if (LoginProcdure() == false)
+	/*if (LoginProcdure() == false)
 	{
 		ExitProcedure();
-	}
+	}*/
 	//GetUserRole();
 	GetPreferedChamp();
 	DecideAdvice();
@@ -67,7 +67,7 @@ void SystemMain::GetUserRole()
 	while (check == false)
 	{
 		cout << "\nPlease choose one of the following options for your prefered role in the game, which lane: " <<
-			"\n1. Top\n2. Mid\n3. Bottom\n4. Support\n5. Jungle";
+			"\n1. Top\n2. Mid\n3. Bottom\n4. Support\n5. Jungle\n";
 		cin >> inputTemp;
 		switch (inputTemp)
 		{
@@ -105,7 +105,7 @@ void SystemMain::GetPreferedChamp()
 	while (check == false)
 	{
 		cout << "\nPlease choose one of the following options for your prefered champion type in the game: " <<
-			"\n1. Controller\n2. Fighter\n3. Mage\n4. Marksman\n5. Slayer\n6. Tank\n7. Special";
+			"\n1. Controller\n2. Fighter\n3. Mage\n4. Marksman\n5. Slayer\n6. Tank\n7. Special\n";
 		cin >> inputTemp;
 		switch (inputTemp)
 		{
@@ -151,7 +151,7 @@ void SystemMain::DecideAdvice()
 	while (check == false)
 	{
 		cout << "\nPlease choose one of the following options for your advice area: " <<
-			"\n1. Map Movement\n2. Combat Engagement\n3. Item Purchasing\n4. General Strategy\n5. Exit";
+			"\n1. Map Movement\n2. Combat Engagement\n3. Item Purchasing\n4. General Strategy\n5. Exit\n";
 		cin >> inputTemp;
 		switch (inputTemp)
 		{
