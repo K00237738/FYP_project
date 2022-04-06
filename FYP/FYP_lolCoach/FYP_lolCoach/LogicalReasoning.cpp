@@ -38,7 +38,7 @@ string LogicalReasoning::MapMovementReasoning(MatchInfoData& matchData)
 	srand(time(0));
 	int randomPercent = (rand()%20)+1;//use random num
 	if (randomPercent < 10) { randomPercent += 10; }//make sure its between 10 - 20% incvrease
-	float randomrisk = (1 - safeFactor)* (randomPercent/100);//get 10 - 20% of less favoured judgement 
+	float randomrisk = (safeFactor)* (randomPercent/100);//get 10 - 20% of less favoured judgement 
 	//and increase less favoured judgement by given amount by docking down safefactor
 	safeFactor -= randomrisk;//dock down safe factor
 
@@ -46,7 +46,7 @@ string LogicalReasoning::MapMovementReasoning(MatchInfoData& matchData)
 	randomPercent = (rand() % 100)+1;//get value between 1 - 100
 	float reasoningRoll = randomPercent/100;//so it will be between 0 - 1
 
-	if (reasoningRoll <= safeFactor)
+	if (safeFactor <= reasoningRoll)
 	{//stay
 		/*srand(time(0));
 		randomPercent = (rand() % 20) + 1;
@@ -55,7 +55,7 @@ string LogicalReasoning::MapMovementReasoning(MatchInfoData& matchData)
 		srand(time(0));
 		randomPercent = (rand() % 100) + 1;
 		reasoningRoll = randomPercent / 100;
-		if (reasoningRoll <= safeFactor)
+		if (safeFactor <= reasoningRoll)
 		{//protect lane
 			if (!matchData.GetUserRole() == MatchInfoData::JNGL)
 			{//top, mid, bot, support roles
@@ -153,7 +153,7 @@ string LogicalReasoning::MapMovementReasoning(MatchInfoData& matchData)
 		}
 
 		//decide where to shift
-		advice += MapShifting(top, mid, bot, t_jungle, b_jungle, matchData.GetUserRole(), matchData.IsUserTopSpawn());
+		advice = MapShifting(top, mid, bot, t_jungle, b_jungle, matchData.GetUserRole(), matchData.IsUserTopSpawn());
 
 		//decide to push or protect shifted lane
 		//srand(time(0));
@@ -164,7 +164,7 @@ string LogicalReasoning::MapMovementReasoning(MatchInfoData& matchData)
 		srand(time(0));
 		randomPercent = (rand() % 100) + 1;
 		reasoningRoll = randomPercent/* / 100*/;
-		if (reasoningRoll <= safeFactor)
+		if (safeFactor <= reasoningRoll)
 		{//protect lane
 			if (!matchData.GetUserRole() == MatchInfoData::JNGL)
 			{//top, mid, bot, support roles
@@ -211,10 +211,10 @@ string LogicalReasoning::MapMovementReasoning(MatchInfoData& matchData)
 				{
 				case MatchInfoData::B_TOPJNG: case MatchInfoData::B_BOTJNG: case MatchInfoData::T_TOPJNG:
 				case MatchInfoData::T_BOTJNG:
-					advice = "\nExplore and push enemy jungle across from your current position.\n";
+					advice += "\nExplore and push enemy jungle across from your current position.\n";
 					break;
 				default://every other lane
-					advice = "\nPush opposing lane and turret.\n";
+					advice += "\nPush opposing lane and turret.\n";
 					if (matchData.GetTime(match_time_entry) >= MatchInfoData::MID)//if time is mid or over
 					{//lane turrets may be defeated by then
 						advice += "If lane turrets are defated, defend base turret areas for lane.";
@@ -876,7 +876,7 @@ void LogicalReasoning::KD_Consideration(MatchInfoData& matchData)
 string LogicalReasoning::DebugMethod()
 {
 	string debug = ("Riskyness: " + to_string(currentRiskyness));
-	debug += " " + to_string((TOO_RISKY * riskAmplifications));
+	debug += " " + to_string(pow(TOO_RISKY, riskAmplifications));
 	float safeFactor = (currentRiskyness / pow(TOO_RISKY , riskAmplifications)) * 100;
 	debug += " = " + to_string(safeFactor);
 	return debug;

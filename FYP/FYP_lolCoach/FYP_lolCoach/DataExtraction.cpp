@@ -62,14 +62,10 @@ void DataExtraction::RoleData()
 			checkLoop = false;
 			break;
 		case 4:
-			userRoleInput = MatchInfoData::TOP;
-			checkLoop = false;
-			break;
-		case 5:
 			userRoleInput = MatchInfoData::SUPP;
 			checkLoop = false;
 			break;
-		case 6:
+		case 5:
 			userRoleInput = MatchInfoData::JNGL;
 			checkLoop = false;
 			break;
