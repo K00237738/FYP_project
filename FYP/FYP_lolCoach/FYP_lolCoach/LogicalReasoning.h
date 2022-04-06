@@ -29,6 +29,7 @@ public:
 	void BaseConsideration(MatchInfoData& matchData);
 	void KD_Consideration(MatchInfoData& matchData);
 	//-------------------------
+	string DebugMethod();
 
 private:
 	/*

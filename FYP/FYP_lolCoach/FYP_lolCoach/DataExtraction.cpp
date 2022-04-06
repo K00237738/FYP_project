@@ -152,6 +152,8 @@ void DataExtraction::MapMovementDataGathering()
 	clockTimer = clock();
 	timePull *= CLOCKS_PER_SEC;
 
+	MapPositionData();//ask there initial position on the map
+	system("cls");//clear command prompt
 
 	cout << "Starting gatherloop" << endl;
 	while (gameRunning == true)
@@ -161,6 +163,7 @@ void DataExtraction::MapMovementDataGathering()
 		//info that can't aquire through api
 
 		while ((clock() - clockTimer) < timePull);//loop for 35secs
+		system("cls");
 		//reach 35 seconds, pull
 		gameRunning = PullFromFile();
 		/*timePull = 35* CLOCKS_PER_SEC;*/
@@ -184,6 +187,7 @@ void DataExtraction::MapMovementDataGathering()
 		matches.at(current_match - 1).AddEntry(gameTimeEntry, gameTimefloat, mapPosEntry, level, matchaveragelevel, baseVulnerable, kd);
 		//call logical reasoning
 		cout << reasoning.MapMovementReasoning(matches.at(current_match - 1)) << endl;
+		cout << "\n" << reasoning.DebugMethod() << endl;
 
 	}
 	//pthyonthreadcall.join();

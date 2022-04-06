@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 #include <string>
 
 LogicalReasoning::LogicalReasoning()
@@ -18,6 +19,7 @@ void LogicalReasoning::ReasoningProcess()
 
 string LogicalReasoning::MapMovementReasoning(MatchInfoData& matchData)
 {
+	currentRiskyness = 0;//reset riskiness
 	riskAmplifications = 0;//reset risk levels value
 	string advice = "";
 	int index = matchData.GetEntries()-1;
@@ -29,7 +31,7 @@ string LogicalReasoning::MapMovementReasoning(MatchInfoData& matchData)
 	RoleConsideration(matchData);
 
 	//------------Make a decision----------
-	float safeFactor = currentRiskyness / (TOO_RISKY * riskAmplifications/*get mask risk from all the calulations*/);
+	float safeFactor = (currentRiskyness / pow(TOO_RISKY, riskAmplifications/*get mask risk from all the calulations*/))*100;//so value is between 100 - 1, not below 1
 	//gets how risky the player is on a scale of 0 - 1. Then use that as a measure of how safe to play
 	// so if too risky, play safer. if too safe, player more risky
 	//decide whether to push forward or pull back player (move or stay)
@@ -43,11 +45,12 @@ string LogicalReasoning::MapMovementReasoning(MatchInfoData& matchData)
 	srand(time(0));
 	randomPercent = (rand() % 100)+1;//get value between 1 - 100
 	float reasoningRoll = randomPercent/100;//so it will be between 0 - 1
+
 	if (reasoningRoll <= safeFactor)
 	{//stay
-		srand(time(0));
+		/*srand(time(0));
 		randomPercent = (rand() % 20) + 1;
-		randomrisk = (1 - safeFactor) * (randomPercent / 100);
+		randomrisk = (1 - safeFactor) * (randomPercent / 100);*/
 
 		srand(time(0));
 		randomPercent = (rand() % 100) + 1;
@@ -153,13 +156,14 @@ string LogicalReasoning::MapMovementReasoning(MatchInfoData& matchData)
 		advice += MapShifting(top, mid, bot, t_jungle, b_jungle, matchData.GetUserRole(), matchData.IsUserTopSpawn());
 
 		//decide to push or protect shifted lane
-		srand(time(0));
-		randomPercent = (rand() % 20) + 1;
-		randomrisk = (1 - safeFactor) * (randomPercent / 100);
+		//srand(time(0));
+		//randomPercent = (rand() % 20) + 1;
+		//randomrisk = (1 - safeFactor) * (randomPercent / 100);
+		//randomrisk = (1 - safeFactor) * (randomPercent / 100);
 
 		srand(time(0));
 		randomPercent = (rand() % 100) + 1;
-		reasoningRoll = randomPercent / 100;
+		reasoningRoll = randomPercent/* / 100*/;
 		if (reasoningRoll <= safeFactor)
 		{//protect lane
 			if (!matchData.GetUserRole() == MatchInfoData::JNGL)
@@ -867,4 +871,13 @@ void LogicalReasoning::KD_Consideration(MatchInfoData& matchData)
 		currentRiskyness *= SAFE;
 	}
 	riskAmplifications += 1;
+}
+
+string LogicalReasoning::DebugMethod()
+{
+	string debug = ("Riskyness: " + to_string(currentRiskyness));
+	debug += " " + to_string((TOO_RISKY * riskAmplifications));
+	float safeFactor = (currentRiskyness / pow(TOO_RISKY , riskAmplifications)) * 100;
+	debug += " = " + to_string(safeFactor);
+	return debug;
 }
