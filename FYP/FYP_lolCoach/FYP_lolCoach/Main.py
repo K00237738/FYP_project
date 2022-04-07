@@ -6,51 +6,52 @@ import time
 
 	
 def pull_api():
-	#try:		
-	api=RiotAPI('xxx')
-	activeplayername=api.get_active_player()
-	#playername = json.dumps(activeplayerStats)
-	activeplayerStats=api.get_active_player_stats()
-	gamestats=api.get_gamestats()
-	playerlist=api.get_playerlist()
-	playerscore=api.get_playerscores(activeplayername)
-	
-	levelavg = 0
-	playeramount = 0
-	for i in playerlist:#cycle through all player levels and get average
-		levelavg += playerlist[playeramount]["level"]
-		playeramount+=1
+	try:		
+		api=RiotAPI('xxx')
+		activeplayername=api.get_active_player()
+		#playername = json.dumps(activeplayerStats)
+		activeplayerStats=api.get_active_player_stats()
+		gamestats=api.get_gamestats()
+		playerlist=api.get_playerlist()
+		playerscore=api.get_playerscores(activeplayername)
 		
-	levelavg = levelavg/playeramount
-	
-	filedump = {
-		"playername":activeplayername,
-		"kills":playerscore["kills"],
-		"deaths":playerscore["deaths"],
-		"playerlevel":activeplayerStats["level"],
-		"avglevel":round(levelavg),
-		"time":gamestats["gameTime"],
-		"isGameRunning":1  
-	}
-	results = open("results.json", "w")
-	results.write(json.dumps(filedump))
-	results.close()
+		levelavg = 0
+		playeramount = 0
+		for i in playerlist:#cycle through all player levels and get average
+			levelavg += playerlist[playeramount]["level"]
+			playeramount+=1
+			
+		levelavg = levelavg/playeramount
+		
+		filedump = {
+			"playername":activeplayername,
+			"kills":playerscore["kills"],
+			"deaths":playerscore["deaths"],
+			"playerlevel":activeplayerStats["level"],
+			"avglevel":round(levelavg),
+			"time":gamestats["gameTime"],
+			"isGameRunning":1  
+		}
+		results = open("results.json", "w")
+		results.write(json.dumps(filedump))
+		results.close()
 	#print(json.dumps(filedump, indent=3))
 	
-	#except:
-	#	print('There was a problem pulling from the game or creating a file\nGame must be ended')		
-	#	filedump = {
-	#		"playername":"",
-	#		"kills":0,
-	#		"deaths":0,
-	#		"playerlevel":0,
-	#		"avglevel":0,
-	#		"time":0,
-	#		"isGameRunning":0
-	#	}
-	#	results = open("results.json", "w")#create a json file
-	#	results.write(json.dumps(filedump))
-	#	results.close()
+	except:
+		print('There was a problem pulling from the game or creating a file\nGame must be ended')		
+		filedump = {
+			"playername":"",
+			"kills":0,
+			"deaths":0,
+			"playerlevel":0,
+			"avglevel":0,
+			"time":0,
+			"isGameRunning":0
+		}
+		results = open("results.json", "w")#create a json file
+		results.write(json.dumps(filedump))
+		results.close()
+		exit(0)
 	#	print(json.dumps(filedump, indent=3))
 	
 
