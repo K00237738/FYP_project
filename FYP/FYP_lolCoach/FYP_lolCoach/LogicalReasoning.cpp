@@ -89,7 +89,7 @@ string LogicalReasoning::MapMovementReasoning(MatchInfoData& matchData)
 		{//push lane
 			if (!matchData.GetUserRole() == MatchInfoData::JNGL)
 			{//top, mid, bot, support roles
-				advice = "\nPush opposing lane and turret.\n";
+				advice += "\nPush opposing lane and turret.\n";
 				if (matchData.GetTime(match_time_entry) >= MatchInfoData::MID)//if time is mid or over
 				{//lane turrets may be defeated by then
 					advice += "If opposing lane turrets defated, push enemy base.";
@@ -102,10 +102,10 @@ string LogicalReasoning::MapMovementReasoning(MatchInfoData& matchData)
 				{
 				case MatchInfoData::B_TOPJNG: case MatchInfoData::B_BOTJNG: case MatchInfoData::T_TOPJNG:
 				case MatchInfoData::T_BOTJNG:
-					advice = "\nExplore and push enemy jungle across from your current position.\n";
+					advice += "\nExplore and push enemy jungle across from your current position.\n";
 					break;
 				default://every other lane
-					advice = "\nPush opposing lane and turret.\n";
+					advice += "\nPush opposing lane and turret.\n";
 					if (matchData.GetTime(match_time_entry) >= MatchInfoData::MID)//if time is mid or over
 					{//lane turrets may be defeated by then
 						advice += "If lane turrets are defated, defend base turret areas for lane.";
@@ -173,7 +173,6 @@ string LogicalReasoning::MapMovementReasoning(MatchInfoData& matchData)
 				{//lane turrets may be defeated by then
 					advice += "If lane turrets are defated, defend base turret areas for lane.";
 				}
-				return advice;
 			}
 			else
 			{//jungle role
@@ -184,14 +183,13 @@ string LogicalReasoning::MapMovementReasoning(MatchInfoData& matchData)
 					advice = "\nClear out camps.\n";
 					break;
 				default://every other lane
-					advice = "\nProtect lane turret.\n";
+					advice += "\nProtect lane turret.\n";
 					if (matchData.GetTime(match_time_entry) >= MatchInfoData::MID)//if time is mid or over
 					{//lane turrets may be defeated by then
 						advice += "If lane turrets are defated, defend base turret areas for lane.";
 					}
 					break;
 				}
-				return advice;
 			}
 		}
 		else
@@ -203,7 +201,6 @@ string LogicalReasoning::MapMovementReasoning(MatchInfoData& matchData)
 				{//lane turrets may be defeated by then
 					advice += "If opposing lane turrets defated, push enemy base.";
 				}
-				return advice;
 			}
 			else
 			{//jungle role
@@ -221,10 +218,10 @@ string LogicalReasoning::MapMovementReasoning(MatchInfoData& matchData)
 					}
 					break;
 				}
-				return advice;
 			}
 		}
 	}//shift end ----------------------------------------------
+	return advice;
 }
 
 string LogicalReasoning::MapShifting(int& top, int& mid, int& bot, int& t_jungle, int& b_jungle, MatchInfoData::Roles userRole, bool isTop)
@@ -232,13 +229,13 @@ string LogicalReasoning::MapShifting(int& top, int& mid, int& bot, int& t_jungle
 	string advice = "";
 	srand(time(0));
 	int randomPercent = (rand() % 100) + 1;//use random num
-	if (isTop)
+	if (isTop == true)
 	{
-		advice += "\nShift to top side ";
+		advice = "\nShift to top side ";
 	}
 	else
 	{
-		advice += "\nShift to bottom side ";
+		advice = "\nShift to bottom side ";
 	}
 
 	switch (userRole)
